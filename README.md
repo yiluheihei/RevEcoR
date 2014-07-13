@@ -9,6 +9,6 @@ You can install:
 
 the latest development version from github with
 
-    ```R
-    devtools::install_github("yiluheihei/ReverseEcologyR")
-    ```
+ ```R
+ devtools::install_github("yiluheihei/ReverseEcologyR")
+ ```
