@@ -1,0 +1,24 @@
+Package: ReverseEcologyR
+Type: Package
+Title: Reverse ecology analysis in R
+Version: 0.99.0
+Date: 2014-7-13
+Author: Yang Cao, Fei Li
+Maintainer: Yang Cao <yiluheihei@gmail.com>, Fei Li <pittacus@gmail.com>
+Description: This package implementation the applications of reverse ecology.
+    Reverse ecology refers to the use of genomics to study ecology with no a
+    priori assumptions about the organism(s) under consideration, linking the
+    organism and their environment.
+Depends:
+    R (>= 2.14)
+Imports:
+    Biobase,
+    Matrix,
+    igraph,
+    XML,
+    stringr,
+    KEGGREST,
+    magrittr
+License: GPL (>= 2)
+LazyLoad: yes
+biocViews: GraphsAndNetwork, Sequencing, Pathways SystemsBiology
