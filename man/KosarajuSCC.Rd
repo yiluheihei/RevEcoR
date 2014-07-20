@@ -9,13 +9,7 @@ KosarajuSCC(g)
 \item{g,}{a igraph object to be caculated}
 }
 \value{
-a list with three components:
-\itemize{
-  \item membership  numeric vector giving the SCC id to which each vertex
-   belongs.
-  \item size numeric vector giving the sizes of the SCCs.
-  \item no numeric constant, the number of SCCs.
-}
+a list which length is equal to the number of SCCs, each element represents a Scc
 }
 \description{
 This function utilizes Kosaraju's algorithm to caculate the
@@ -23,5 +17,8 @@ strong connetected components descomposition of a given network
 }
 \references{
 \emph{AV Aho, JE Hopcroft, JD Ullman: The design and analysis of computer algorithms, 1974}
+}
+\seealso{
+\code{\link{getSeedSets}}
 }
 
