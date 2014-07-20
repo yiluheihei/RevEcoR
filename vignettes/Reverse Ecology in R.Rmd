@@ -1,0 +1,81 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{ReverseEcology}
+-->
+```{r setup, include=FALSE}
+library(knitr)
+library(ReverseEcologyR)
+opts_chunk$set(fig.width=8, fig.height=5)
+set.seed(60823316) 
+```
+<STYLE type="text/css">
+  h1,h2,h3,h4,h5 { 
+    font-family: palatino, georgia, serif;
+    color: royalblue;
+  }
+    h1, h2, h6{
+    text-align: center;
+  }
+  body{
+    font-size: 0.9em;
+    line-height: 23px;
+  }
+  h3{
+  font-weight: normal;
+  }
+  h6{
+        font-size: 0.9em;
+        font-weight: normal;
+        line-height: 5px;      
+   }
+   hr{
+     border-top-style: solid;
+     border-top-width: medium;
+   }
+  code {
+    font-size: 80%;
+    line-height: 140%;
+    border: 1px solid #ccc;
+  }
+   @media print{
+  hr { 
+      visibility: inherit;
+      page-break-before: auto;
+    }
+   }
+ </STYLE>
+
+
+* * *
+## ReverseEcologyR -- Reverse ecology linking organism(s) and their environments 
+========================================================
+
+###### Yang Cao  <yiluheihei@gmail.com>, Fei Li <pittacus@gmail.com>  
+###### BeiJing Institute of Radiation -- Biotechnology Laboratory
+
+### Introduction
+
+The struction of complex biological systems relects not only their function but
+also into the habitates in which they envoled and are adapted to. Reverse 
+Ecology- an emerging new frontier in Evolutionary Sysmtems biology at the 
+interface of computational biology, genomics and environmental science, which 
+uses population genomics to study ecology with no a priori assumptions about the
+organism(s) under consideration. This term was suggested by [Li *et al.* 2008](#ref1) 
+during a conference on ecological genomics in Christchurch, New Zealand. It 
+facilitates the translation of high through genomic data into large scale 
+ecological data, and utilizes system-based method to obtain novel insights of 
+pooly characterized microorganisms and relationships between microorgasnims or 
+their environments in a superorganism.Traditional approach, however, can only 
+applied to a small scale and for ralatively well-studied systems.
+
+The crucial premise of Reverse Ecology is that genomic information can be 
+converted into ecological information. Metabolism linking  miroorgasnim  with 
+the biochemical environmnet acrossing compound exchanges: import of exogenous 
+compounds and impact the composition of its environment via secretion of other 
+compounds.
+
+Here we 
+### references ###
+
+<a name="ref1">Li, Y. F., Costello, J. C., Holloway, A. K. and Hahn, M. W. (2008), REVERSE ECOLOGY AND THE POWER OF POPULATION GENOMICS. Evolution, 62: 2984–2994. doi: 10.1111/j.1558-5646.2008.00486.x</a>
+
