@@ -6,14 +6,8 @@
 #'@param g, a igraph object to be caculated 
 #'@references \emph{AV Aho, JE Hopcroft, JD Ullman: The design and analysis of computer algorithms, 1974}
 #'@export
-#'@return a list with three components:
-#' \itemize{
-#'   \item membership  numeric vector giving the SCC id to which each vertex 
-#'    belongs.
-#'   \item size numeric vector giving the sizes of the SCCs.
-#'   \item no numeric constant, the number of SCCs.
-#' }
-
+#'@return a list which length is equal to the number of SCCs, each element represents a Scc
+#' @seealso \code{\link{getSeedSets}}
 
 KosarajuSCC <- function(g){  
   #Comparing d with S.node, get the overlapping ones and remove the NA
@@ -64,11 +58,5 @@ KosarajuSCC <- function(g){
     List.out[[Count]] <- d.useful
     List.node[match(d.useful,List.node)] <- 0
   }
-  size <- listLen(List.out)
-  no <- length(List.out)
-  membership <- 1:n
-  for (i in 1:no)
-    membership[List.out[[i]]] <- i
-  return(list(membership = membership, size = size, no = no))
+  List.out
 }
-  
