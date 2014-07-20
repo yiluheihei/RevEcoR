@@ -7,6 +7,18 @@
 #'@export
 
 CnstOrgMtblNet <- function(pathway.info){
+  # delete the small group nodes
+  deleteSG <- function(g,threshold = 10){ 
+    delet.node <- NULL
+    Step.count <- 6 
+    while (all((neighborhood.size(g,Step.count)-neighborhood.size(g,Step.count-1))!=0)){
+      Step.count <- Step.count + 1
+    }
+    delet.node <- which(neighborhood.size(g,Step.count) <= threshold)
+    gf <- delete.vertices(g,delet.node)
+    return(gf)
+  }
+  
   metabolites <- pathway.info[,c(2,3)]
   node <- unique(unlist(metabolites))
   net.matrix <- matrix(0,length(node),length(node))
@@ -22,16 +34,12 @@ CnstOrgMtblNet <- function(pathway.info){
   diag(net.matrix) <- 0
   g <- graph.adjacency(net.matrix)
   V(g)$name <- node
-  ## omit the glycans
-  node2 <- str_count(node, "^gl") %>%
+  ## omit the glycans and drugs
+  node2 <- str_count(node, "^gl|^dr") %>%
     is_greater_than(0) %>%
     extract(node,.)
   ## drop the small dis-connetect components
-  g <- delete.vertices(g, node2)
-  #g.community <- clusters(g)
-  #community.size <- sizes(g.community) 
-  #small.size <- which(community.size <= 10)
-  #small.vertex <- match(membership(g.community), small.size)
-  #small.vertex <- V(g)$name[!is.na(small.vertex)]  
-  #g <- delete.vertices(g, small.vertex)
+  g <- delete.vertices(g, node2) %>%
+    deleteSG(threshold = 10)
+  g
 }
