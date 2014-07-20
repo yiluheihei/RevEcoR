@@ -72,5 +72,5 @@ GetOrgPathwayInfo <- function(org){
   rn.info2 <- rn.info2[,-4]
   rn <- aggregate(rn.info2, list(unlist(rn.info2[,1])),
     compose(c,unlist,unique,unlist)) %>%
-  extract(-1)
+    extract(-1)
 }
