@@ -19,6 +19,9 @@ Imports:
     stringr,
     KEGGREST,
     magrittr
+Suggests:
+    knitr
+VignetteBuilder: knitr
 License: GPL (>= 2)
 LazyLoad: yes
 biocViews: GraphsAndNetwork, Sequencing, Pathways SystemsBiology

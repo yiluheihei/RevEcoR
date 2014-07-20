@@ -4,7 +4,7 @@
 #'
 #' @name ReverseEcologyR
 #' @docType package
-#' @importFrom igraph graph.dfs get.adjacency delete.vertices graph.adjacency V V<-
+#' @importFrom igraph graph.dfs get.adjacency delete.vertices graph.adjacency V V<- neighborhood.size
 #' @importFrom Matrix t
 #' @importFrom Biobase listLen
 #' @importFrom KEGGREST keggGet keggList
