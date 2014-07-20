@@ -1,0 +1,208 @@
+<!--
+%\VignetteEngine{knitr::docco_linear}
+%\VignetteIndexEntry{ReverseEcology}
+-->
+```{r setup, include=FALSE}
+library(knitr)
+library(ReverseEcologyR)
+opts_chunk$set(fig.width=8, fig.height=5)
+knit_hooks$set(htmlcap = function(before, options, envir) {
+  if(!before) {
+    paste('<p class="caption" style="text-align: center; font-size: 20px; color: blue">',options$htmlcap,"</p>",sep="")
+    }
+    })
+set.seed(60823316) 
+```
+<STYLE type="text/css">
+  h1,h2,h3,h4,h5 { 
+    font-family: palatino, georgia, serif;
+    color: royalblue;
+  }
+    h1, h2, h6{
+    text-align: center;
+  }
+  body{
+    font-size: 0.9em;
+    line-height: 23px;
+  }
+  h3{
+  font-weight: normal;
+  }
+  h6{
+        font-size: 0.9em;
+        font-weight: normal;
+        line-height: 5px;      
+   }
+   hr{
+     border-top-style: solid;
+     border-top-width: medium;
+   }
+  code {
+    font-size: 80%;
+    line-height: 140%;
+    border: 1px solid #ccc;
+  }
+   @media print{
+  hr { 
+      visibility: inherit;
+      page-break-before: auto;
+    }
+   p {
+    align. 
+   }
+ </STYLE>
+
+
+## ReverseEcologyR -- Reverse ecology linking organism(s) and their environments 
+========================================================
+
+###### Yang Cao  <yiluheihei@gmail.com>, Fei Li <pittacus@gmail.com>  
+###### BeiJing Institute of Radiation -- Biotechnology Laboratory
+
+### Table of Contens
+
+* [Background](#background)
+
+* [Introduction](#intro)
+
+* [Installation](#install)
+
+* [Downloding the metabolic data](#metadata)
+
+* [Reconstruction of organism metabolic network](#reconstruct)
+
+* [Identify seed set of  metabolic network](#seedset)
+
+* [sessionInfo](#session)
+
+* [references](#ref)
+
+<a id="background"></a>
+### Background
+
+The struction of complex biological systems relects not only their function but
+also into the habitates in which they envoled and are adapted to. Reverse 
+Ecology- an emerging new frontier in Evolutionary Sysmtems biology at the 
+interface of computational biology, genomics and environmental science, which 
+uses population genomics to study ecology with no a priori assumptions about the
+organism(s) under consideration. This term was suggested by [Li *et al.*](#reversecology) 
+during a conference on ecological genomics in Christchurch, New Zealand. It 
+facilitates the translation of high through genomic data into large scale 
+ecological data, and utilizes system-based method to obtain novel insights of 
+pooly characterized microorganisms and relationships between microorgasnims or 
+their environments in a superorganism.Traditional approach, however, can only 
+applied to a small scale and for ralatively well-studied systems.
+
+<a id="intro"></a>
+### Introduction
+
+This manual is a brief introduction to structure, funcitons and usage of 
+**ReverseEcologyR** package. The **ReverseEcologyR** package implementation a 
+large-scale reconstruction of metabolic environmnets using a cross-species 
+analysis, idenditifying the set of compounds with a graph-based algorithm mentioned
+in [Borenstein *et al.*](#seedset) that each species extracts from its 
+environmnet where the metabolic network data is obtained from the KEGG datase with 
+KEGG API.This algorithm consists of several steps:
+
+1. Downding metabolic networks data from KEGG database: all speciesmetabolic network data 
+could be downloaded from the KEGG PATHWAY datase with the KEGG REST API.
+
+2. Reconstruction metabolic networks of all species: a directed graph whose nodes represent compounds and whose edges represent reactions linking substrates to products.
+
+3. Identify seed set of a specific organism: each metabolic network was decomposed into its
+strongly conneted components (SCC) using [Kasaraju's algorithm](#Kasaraju). The SCC forms a directed graph whose nodes are the components and whose edges are the orginal edges in the  
+graph that connect nodes in two different components. Then, detectting the seed set with this SCCs.
+
+<a id="install"></a>
+### Installation
+
+Until **ReverseEcologyR** is ready for CRAN or Bioconductor, you can install it directly from GitHub using devtools.
+
+```{r eval=FALSE,echo=TRUE}
+install.packages("devtools")
+devtools::install_github("yiluheihei/ReverseEcologyR")
+```
+
+You'll also need to make sure your machine is able to build packages from source. See [Package Development Prerequisites](https://support.rstudio.com/hc/en-us/articles/200486498-Package-Development-Prerequisites) for the tools needed for your operating system.
+
+After installation, you can load **ReverseEcologyR** into current workspace by typing or pasting the following codes:
+
+```{r eval=TRUE}
+library(ReverseEcologyR)
+```
+
+<a id="metadata"></a>
+### Downloding the metabolic data of a specific organism 
+
+All metabolic data of organisms with complete genomes in KEGG database have been downloaded and saving in **ReverseEcologyR** named `organism.pathway.info` which contains reactions and metabolites information of each organism. In total, 3139 species metabolic , covering all taxonomic groups was download, since July 2014. 
+
+```{r eval=FALSE}
+load("organism.pathway.info.rda")
+```
+
+Futhermore, This package provides `GetOrgPathwayInfo` to download the specific organism metabolic data, and return a list where each element consists of three elements: reaction, substrate and product. Type `?GetOrgPathwayInfo` to see more details.
+
+```{r eval=TRUE}
+buc <- GetOrgPathwayInfo("buc")
+head(buc)
+```
+
+As KEGG database is constantly updated, you can updated all the organisms metabolic data manually with the following code.
+
+```{r eval=FALSE}
+organism <- read.delim("http://rest.kegg.jp/list/organism")
+organism.metabolic.info <- lapply(organism[[2]],GetOrgPathwayInfo)
+```
+
+<a id="reconstruct"></a>
+### Reconstruction of organism metabolic network 
+
+The crucial premise of Reverse Ecology is that genomic information can be 
+converted into ecological information. Metabolism linking  miroorgasnim  with 
+the biochemical environmnet acrossing compound exchanges: import of exogenous 
+compounds and impact the composition of its environment via secretion of other 
+compounds. Thus, metabolic network is the reflection of interation between organisms and its environment.
+
+Graph-based representation of metabolic reactions where nodes represent compounds and edges represent reactions is a  common tool in analyzing and studing metabolic networks. A directed edge from node a to b indicates that compound a is a substrate in some reaction that produces compound b.
+
+`CnstOrgMtblNet` could be used to reconstruction the metabolicnetwork of a specific organism.
+
+```{r eval=TRUE, htmlcap="Figure 1 Reconstruction metabolic network of *Buchnera aphidicola APS* ", fig.lp="Figure 1", fig.width=8, fig.height=8}
+g <- CnstOrgMtblNet(buc)
+igraph::print.igraph(g)
+igraph::plot.igraph(g, vertex.label=NA, vertex.size=5, edge.arrow.size=0.1)
+```
+
+<a id="seedset"></a>
+### Identify seed set of  metabolic network 
+
+As the interactions with the environment was reflected in the metabolic networks, these networks could be used not only to infer metabolic function but alse to obtain insights into the growth environments in which the species evolved. 
+
+Apparantly, organisms can survive in a wide range of enviromnets and may activate only a subset of the pathways in the network of each environment, using a different set of exogenously acquired compounds (termed seed set). The seed set of the network is defined as the minimal set of compounds in the network that allows the synthesis of all other compouds, and can serve as a good proxy for its environment and can be conceived as the essential and effective biochemical environment. 
+
+`getSeedSets` was used to detect the seed set of a metabolic network. It can help us to get the compound that organisms are exogenously acquired compouds from the environment. This algorithm is based on a fast method Kasaraju algorithm for SCC decomposition which is implementaed in `Kasaraju`. For more details, see `?getSeedSets` and `?KasarajuSCC`.
+
+```r
+seed.set <- getSeedSets(g, 0.2)
+seed.set
+```
+### Competetion analysis among species
+
+<a id="session"></a>
+### sessionInfo 
+
+The version number of R and packages loaded for generating the vignette were:
+
+```{r, evaL=FALSE}
+sessionInfo()
+```
+<a id="ref"></a>
+### references
+-----------------
+
+* <a name="reversecology">Li Y F, Costello J C, Holloway A K, et al. "Reverse ecology" and the power of population genomics[J]. Evolution, 2008, 62(12): 2984-2994.</a>
+
+* <a name="seedset">Borenstein E, Kupiec M, Feldman M W, et al. Large-scale reconstruction and phylogenetic analysis of metabolic environments[J]. Proceedings of the National Academy of Sciences, 2008, 105(38): 14482-14487.</a>
+
+* <a name="Kasaraju">Tarjan R. Depth-first search and linear graph algorithms[J]. SIAM journal on computing, 1972, 1(2): 146-160.</a>
+

@@ -4,6 +4,8 @@
 #' 
 #' @param org, three characters, the kegg organism code, e.g. "buc"
 #' 
+#' @export
+#' 
 #' @return a three length df, consists of  reaction name, substrates and products
 
 GetOrgPathwayInfo <- function(org){
