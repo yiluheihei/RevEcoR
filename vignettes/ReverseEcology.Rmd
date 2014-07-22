@@ -182,9 +182,9 @@ Apparantly, organisms can survive in a wide range of enviromnets and may activat
 
 `getSeedSets` was used to detect the seed set of a metabolic network. It can help us to get the compound that organisms are exogenously acquired compouds from the environment. This algorithm is based on a fast method Kasaraju algorithm for SCC decomposition which is implementaed in `Kasaraju`. For more details, see `?getSeedSets` and `?KasarajuSCC`.
 
-```r
+```{r,eval=TRUE,echo=TRUE}
 seed.set <- getSeedSets(g, 0.2)
-seed.set
+head(seed.set)
 ```
 ### Competetion analysis among species
 
