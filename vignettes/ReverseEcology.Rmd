@@ -73,6 +73,8 @@ set.seed(60823316)
 
 * [Identify seed set of  metabolic network](#seedset)
 
+* [Host-microbe and microbe-microbe cooperation analysis](#cooperation)
+
 * [sessionInfo](#session)
 
 * [references](#ref)
@@ -168,9 +170,9 @@ Graph-based representation of metabolic reactions where nodes represent compound
 `CnstOrgMtblNet` could be used to reconstruction the metabolicnetwork of a specific organism.
 
 ```{r eval=TRUE, htmlcap="Figure 1 Reconstruction metabolic network of *Buchnera aphidicola APS* ", fig.lp="Figure 1", fig.width=8, fig.height=8}
-g <- CnstOrgMtblNet(buc)
-igraph::print.igraph(g)
-igraph::plot.igraph(g, vertex.label=NA, vertex.size=5, edge.arrow.size=0.1)
+buc.net <- CnstOrgMtblNet(buc)
+igraph::print.igraph(buc.net)
+igraph::plot.igraph(buc.net, vertex.label=NA, vertex.size=5, edge.arrow.size=0.1)
 ```
 
 <a id="seedset"></a>
@@ -180,13 +182,24 @@ As the interactions with the environment was reflected in the metabolic networks
 
 Apparantly, organisms can survive in a wide range of enviromnets and may activate only a subset of the pathways in the network of each environment, using a different set of exogenously acquired compounds (termed seed set). The seed set of the network is defined as the minimal set of compounds in the network that allows the synthesis of all other compouds, and can serve as a good proxy for its environment and can be conceived as the essential and effective biochemical environment. 
 
-`getSeedSets` was used to detect the seed set of a metabolic network. It can help us to get the compound that organisms are exogenously acquired compouds from the environment. This algorithm is based on a fast method Kasaraju algorithm for SCC decomposition which is implementaed in `Kasaraju`. For more details, see `?getSeedSets` and `?KasarajuSCC`.
+`getSeedSets` was used to detect the seed set of a metabolic network. It can help us to get the compound that organisms are exogenously acquired compouds from the environment, representing the organism's nutritional profile. This algorithm is based on a fast method Kasaraju algorithm for SCC decomposition which is implementaed in `Kasaraju`. For more details, see `?getSeedSets` and `?KasarajuSCC`.
 
 ```{r,eval=TRUE,echo=TRUE}
-seed.set <- getSeedSets(g, 0.2)
+seed.set <- getSeedSets(buc.net, 0.2)
 head(seed.set)
 ```
-### Competetion analysis among species
+<a id="cooperation"></a>
+### Host-microbe and microbe-microbe cooperation analysis 
+
+The topology of metabolic networks can provide insight not only into the metabolic process that accur within each species, but also into interactions between different species. Here we provides `caculateCoopreationIndex` using three cooperation index: [competition index, coplementarity index](#rule) and [biosynthetic support scores](#bsi) measure the microbe-microbe co-occurrence pattern and host-microbe cooperation. More details, see `?caculateCoopreationIndex`.
+
+```{r}
+# ptr metabolic network
+ptr.net <- CnstOrgMtblNet(GetOrgPathwayInfo("ptr"))
+# cooperation analysis between buc and ptr
+cooperation.index <- caculateCooperationIndex(buc.net,ptr.net)
+cooperation.index
+```
 
 <a id="session"></a>
 ### sessionInfo 
@@ -206,3 +219,6 @@ sessionInfo()
 
 * <a name="Kasaraju">Tarjan R. Depth-first search and linear graph algorithms[J]. SIAM journal on computing, 1972, 1(2): 146-160.</a>
 
+* <a name="rule">Levy R, Borenstein E. Metabolic modeling of species interaction in the human microbiome elucidates community-level assembly rules[J]. Proceedings of the National Academy of Sciences, 2013, 110(31): 12804-12809.</a>
+
+* <a name="bsi">Borenstein E, Feldman M W. Topological signatures of species interactions in metabolic networks[J]. Journal of Computational Biology, 2009, 16(2): 191-200.</a>

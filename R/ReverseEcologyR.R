@@ -4,11 +4,13 @@
 #'
 #' @name ReverseEcologyR
 #' @docType package
-#' @importFrom igraph graph.dfs get.adjacency delete.vertices graph.adjacency V V<- neighborhood.size plot.igraph print.igraph subcomponent
+#' @importFrom igraph graph.dfs get.adjacency delete.vertices graph.adjacency V V<- neighborhood.size plot.igraph print.igraph subcomponent is.igraph
 #' @importFrom Matrix t
 #' @importFrom Biobase listLen
 #' @importFrom KEGGREST keggGet keggList
 #' @importFrom stringr str_replace_all str_count
 #' @importFrom XML getNodeSet xmlToList xmlParse
 #' @importFrom magrittr extract is_greater_than %>%
+#' @importFrom gtools permutations
+#' @importFrom rlist list.append
 NULL

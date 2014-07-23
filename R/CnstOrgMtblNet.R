@@ -9,6 +9,8 @@
 CnstOrgMtblNet <- function(pathway.info){
   # delete the small group nodes
   deleteSG <- function(g,threshold = 10){ 
+  if (!is.igraph(g))
+      stop("Not a igraph object")
     delet.node <- NULL
     Step.count <- 6 
     while (all((neighborhood.size(g,Step.count)-neighborhood.size(g,Step.count-1))!=0)){

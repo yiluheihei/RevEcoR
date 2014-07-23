@@ -12,6 +12,8 @@
 #' @export
 #' @seealso \code{\link{KosarajuSCC}}
 getSeedSets <- function(g, threshold = 0.2){
+  if (!is.igraph(g))
+    stop("Not a igraph object")
   ## check scc is a source seed sets or not 
   checkSCC <- function(g, x){
     edge.in <- lapply(x, subcomponent, g=g, mode="in")
@@ -31,6 +33,5 @@ getSeedSets <- function(g, threshold = 0.2){
   min.scc <- g.scc[index]
   sapply(min.scc,checkSCC,g=g) %>%
     extract(min.scc,.) %>%
-    unlist %>%
     lapply(.,function(x)extract(V(g)$name,x))
 }
