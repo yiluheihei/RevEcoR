@@ -3,16 +3,16 @@
 #'@description Reconstruction of genome-scale metabolic network (GsMN) whose
 #'nodes represents compounds and whose edges represents reactions.
 #'
-#'@param metabolic.data, df, more details see function \code{GetOrgPathwayInfo}
+#'@param metabolic.data, df, more details see function \code{getOrgMetabolicData}
 #'and \code{details}
 #'
 #'@details The input of this function can be of two forms. If organims is 
-#'collected in KEGG database, it can be obtained with \code{GetOrgPathwayInfo}. 
+#'collected in KEGG database, it can be obtained with \code{getOrgMetabolicData}. 
 #'If not, \code{metabolic.data} could be a  table format file which contains the
 #'KEGG Orthology annotated information on this organism, e.g. we can download 
 #'this KO annotation profile in the \url{https://img.jgi.doe.gov} website for 
 #'species detected in a human microbime which not contained in KEGG organism 
-#'database. Several functions, such as\code{link{read.table}} and 
+#'database. Several functions, such as \code{link{read.table}} and 
 #'\code{\link{read.delim}} could help us to read KO annotation profile.
 #'
 #'@return igraph object

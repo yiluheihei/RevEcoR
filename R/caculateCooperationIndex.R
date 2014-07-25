@@ -85,7 +85,7 @@ BSIscore <- function(g1, g2, threshold=0){
 #'networks
 #'
 #'@param g,igraph that represents a metabolic network, see 
-#'\code{\link{CnstOrgMtblNet}}
+#'\code{\link{reconstructGsMN}}
 #'@param ..., a list of metabolic networks or a network append to g
 #'@param mode, determins which index you want to caculate, competion or 
 #'complementarity index, g biosynthetic support score

@@ -12,7 +12,7 @@
 #' genome scale metabolic network is also returned
 #' @export
 #' @seealso \code{\link{KosarajuSCC}}
-getSeedSets <- function(g, threshold = 0.2){
+getSeedSets <- function(g, threshold = 0){
   if (!is.igraph(g))
     stop("Not a igraph object")
   ## check scc is a source seed sets or not 
