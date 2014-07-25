@@ -115,6 +115,8 @@ could be downloaded from the KEGG PATHWAY datase with the KEGG REST API.
 strongly conneted components (SCC) using [Kasaraju's algorithm](#Kasaraju). The SCC forms a directed graph whose nodes are the components and whose edges are the orginal edges in the  
 graph that connect nodes in two different components. Then, detectting the seed set with this SCCs.
 
+4. Host-microbe and microbe-microbe cooperation analysis 
+
 <a id="install"></a>
 ### Installation
 
@@ -136,43 +138,48 @@ library(ReverseEcologyR)
 <a id="metadata"></a>
 ### Downloding the metabolic data of a specific organism 
 
-All metabolic data of organisms with complete genomes in KEGG database have been downloaded and saving in **ReverseEcologyR** named `organism.pathway.info` which contains reactions and metabolites information of each organism. In total, 3139 species metabolic , covering all taxonomic groups was download, since July 2014. 
+Metabolic data which contains reactions and metabolites information of each organism. In total, 3139 species metabolic , covering all taxonomic groups was download, since July 2014. 
 
-```{r eval=FALSE}
-load("organism.pathway.info.rda")
-```
 
-Futhermore, This package provides `GetOrgPathwayInfo` to download the specific organism metabolic data, and return a list where each element consists of three elements: reaction, substrate and product. Type `?GetOrgPathwayInfo` to see more details.
+Futhermore, This package provides `getOrgMetabolicData` to download the specific organism metabolic data, and return a list where each element consists of three elements: reaction, substrate and product. It will help to keep a downloaded metabolic data in local. It not only can help keeping the data accurate and speed up the process of network reconstruction, but also allows you to reuse the data for other purposes. 
+
+For `getOrgMetabolicData`, check for the existence of queried orgaism metabolic data in the local database. If the data is not there, retrieve it from KEGG and write into the local database. If not, return the data immediately from the local database.Type `?getOrgMetabolicData` to see more details.
 
 ```{r eval=TRUE}
-buc <- GetOrgPathwayInfo("buc")
+## download metabolic data from remote KEGG database
+buc <- getOrgMetabolicData("buc",refresh=TRUE)
 head(buc)
+
+## if buc has been saved in local, set refresh = FALSE
+## it will load the metabolic data more efficient from local
+buc <- getOrgMetabolicData("buc",refresh=FALSE)
 ```
 
-As KEGG database is constantly updated, you can updated all the organisms metabolic data manually with the following code.
-
-```{r eval=FALSE}
-organism <- read.delim("http://rest.kegg.jp/list/organism")
-organism.metabolic.info <- lapply(organism[[2]],GetOrgPathwayInfo)
-```
 
 <a id="reconstruct"></a>
 ### Reconstruction of organism metabolic network 
 
-The crucial premise of Reverse Ecology is that genomic information can be 
-converted into ecological information. Metabolism linking  miroorgasnim  with 
-the biochemical environmnet acrossing compound exchanges: import of exogenous 
-compounds and impact the composition of its environment via secretion of other 
+The crucial premise of Reverse Ecology is that genomic information can be converted into ecological information. Metabolism linking  miroorgasnim  with the biochemical environmnet acrossing compound exchanges: import of exogenous compounds and impact the composition of its environment via secretion of other 
 compounds. Thus, metabolic network is the reflection of interation between organisms and its environment.
 
 Graph-based representation of metabolic reactions where nodes represent compounds and edges represent reactions is a  common tool in analyzing and studing metabolic networks. A directed edge from node a to b indicates that compound a is a substrate in some reaction that produces compound b.
 
-`CnstOrgMtblNet` could be used to reconstruction the metabolicnetwork of a specific organism.
+`reconstructGsMN` could be used to reconstruction the metabolicnetwork of a specific organism.
+
+KEGG organism database is a large scale resources and is widly used to reconsturct genome scale metabolic network(GsMN). However, large human microbiome data is generated with the development of Next-generation Sequencing. Spcies detected in the human microbiome is in booming and more non-cultured microbes has been detected. This microbes is not necessarily contains in KEGG.
+
+Integrated microbial genomes (IMG) is a widely resouce and analysis tool for human microbiome. For metagenomic microbiome data, uses can anaysis in IMG and obtain the genomic information of species in the microbiome as well as the KEGG orthology functional annotation profile.
 
 ```{r eval=TRUE, htmlcap="Figure 1 Reconstruction metabolic network of *Buchnera aphidicola APS* ", fig.lp="Figure 1", fig.width=8, fig.height=8}
-buc.net <- CnstOrgMtblNet(buc)
+## species in KEGG
+buc.net <- reconstructGsMN(buc)
 igraph::print.igraph(buc.net)
 igraph::plot.igraph(buc.net, vertex.label=NA, vertex.size=5, edge.arrow.size=0.1)
+
+## ko annotation profile species detected in a human microbiome in IMG (not in KEGG) 
+annodir <- system.file("extdata/koanno.txt",package = "ReverseEcologyR")
+metabolic.data <- read.delim(annodir)
+g2 <- reconstructGsMN(metabolic.data)
 ```
 
 <a id="seedset"></a>
@@ -186,7 +193,7 @@ Apparantly, organisms can survive in a wide range of enviromnets and may activat
 
 ```{r,eval=TRUE,echo=TRUE}
 seed.set <- getSeedSets(buc.net, 0.2)
-head(seed.set)
+head(seed.set$seedset)
 ```
 <a id="cooperation"></a>
 ### Host-microbe and microbe-microbe cooperation analysis 
@@ -195,7 +202,7 @@ The topology of metabolic networks can provide insight not only into the metabol
 
 ```{r}
 # ptr metabolic network
-ptr.net <- CnstOrgMtblNet(GetOrgPathwayInfo("ptr"))
+ptr.net <- reconstructGsMN(getOrgMetabolicData("ptr",refresh=TRUE))
 # cooperation analysis between buc and ptr
 cooperation.index <- caculateCooperationIndex(buc.net,ptr.net)
 cooperation.index

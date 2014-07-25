@@ -8,7 +8,8 @@ Maintainer: Yang Cao <yiluheihei@gmail.com>, Fei Li <pittacus@gmail.com>
 Description: This package implementation the applications of reverse ecology.
     Reverse ecology refers to the use of genomics to study ecology with no a
     priori assumptions about the organism(s) under consideration, linking the
-    organism and their environment.
+    organism and their environment. Futher more, it utlizes organims environment
+    to predict the intersction of  microbe-microbe and host-micriobe.
 Depends:
     R (>= 2.14)
 Imports:
@@ -18,7 +19,8 @@ Imports:
     XML,
     stringr,
     KEGGREST,
-    magrittr
+    magrittr,
+    mmnet
 Suggests:
     knitr
 VignetteBuilder: knitr

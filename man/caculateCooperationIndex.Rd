@@ -3,8 +3,7 @@
 \alias{caculateCooperationIndex}
 \title{Caculating the metabolic competition and complementarity index}
 \usage{
-caculateCooperationIndex(g, ..., mode = c("competition", "complementarity"),
-  threshold = 0)
+caculateCooperationIndex(g, ..., threshold = 0)
 }
 \arguments{
 \item{g,igraph}{that represents a metabolic network, see
@@ -13,14 +12,14 @@ caculateCooperationIndex(g, ..., mode = c("competition", "complementarity"),
 \item{...,}{a list of metabolic networks or a network append to g}
 
 \item{mode,}{determins which index you want to caculate, competion or
-complementarity index}
+complementarity index, g biosynthetic support score}
 
 \item{threshold}{threshold, the cutoff of confidence score to be serve as a
 seed set, default is 0.2}
 }
 \value{
-a matrix whose nrow and ncol is equal to the number of species to be
-compared, for more see details.
+a cooperation index matrix whose nrow and ncol is equal to the number
+of species to be compared, for more see details.
 }
 \description{
 Caculating the metabolic competition complementarity index among all metabolic
@@ -29,11 +28,15 @@ networks
 \details{
 Metabolic competition index is defined as the fraction of compounds
 in a species seed set of metabolic network that are alse included in its
-partner. However, metabolic complementarity index is the fraction of
+partner; However, metabolic complementarity index is the fraction of
 compounds in one species seed set of metabolic network appearing in the
-metabolic network but not in the seed set of its partner.Seed compounds
-are associated with a confidence score (1/size of SCC), so this fraction is
-calculated as a mormalized weighted sum.
+metabolic network but not in the seed set of its partner; The biosynthetic
+support score represents the extent to which the metabolic requirements of a
+potential parasitic organism can be supported by the biosynthetic capacity of
+a potential host. It is measured by calculating the fraction of the source
+components of a, in which at least one of the compounds can be found in the
+network of b. However, seed compounds are associated with a confidence score
+(1/size of SCC), so this fraction is calculated as a mormalized weighted sum.
 
 The ith row and jth col elements of the returnd matrix represents the
 metabolic competition index or complementarity index of the ith network on the

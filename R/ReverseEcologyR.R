@@ -1,6 +1,6 @@
 #' The ReverseEcologyR package
 #'
-#' This package implementation the applications of reverse ecology. Reverse ecology refers to the use of genomics to study ecology with no a priori assumptions about the organism(s) under consideration, linking the organism and their environment.
+#' This package implementation the applications of reverse ecology. Reverse ecology refers to the use of genomics to study ecology with no a priori assumptions about the organism(s) under consideration, linking the organism and their environment. Prediction the cooperation among species and hosts.
 #'
 #' @name ReverseEcologyR
 #' @docType package
@@ -13,4 +13,5 @@
 #' @importFrom magrittr extract is_greater_than %>%
 #' @importFrom gtools permutations
 #' @importFrom rlist list.append
+#' @importFrom mmnet updateKEGGPathway
 NULL
