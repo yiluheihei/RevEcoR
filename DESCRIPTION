@@ -20,7 +20,9 @@ Imports:
     stringr,
     KEGGREST,
     magrittr,
-    mmnet
+    mmnet,
+    gtools,
+    rlist
 Suggests:
     knitr
 VignetteBuilder: knitr

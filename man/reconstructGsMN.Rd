@@ -6,7 +6,7 @@
 reconstructGsMN(metabolic.data)
 }
 \arguments{
-\item{metabolic.data,}{df, more details see function \code{GetOrgPathwayInfo}
+\item{metabolic.data,}{df, more details see function \code{getOrgMetabolicData}
 and \code{details}}
 }
 \value{
@@ -18,12 +18,12 @@ nodes represents compounds and whose edges represents reactions.
 }
 \details{
 The input of this function can be of two forms. If organims is
-collected in KEGG database, it can be obtained with \code{GetOrgPathwayInfo}.
+collected in KEGG database, it can be obtained with \code{getOrgMetabolicData}.
 If not, \code{metabolic.data} could be a  table format file which contains the
 KEGG Orthology annotated information on this organism, e.g. we can download
 this KO annotation profile in the \url{https://img.jgi.doe.gov} website for
 species detected in a human microbime which not contained in KEGG organism
-database. Several functions, such as\code{link{read.table}} and
+database. Several functions, such as \code{link{read.table}} and
 \code{\link{read.delim}} could help us to read KO annotation profile.
 }
 \examples{
@@ -32,9 +32,9 @@ database. Several functions, such as\code{link{read.table}} and
 ## g <- reconstructGsMN(metabolic.data)
 
 ## species detected in a human microbiome
-annodir <- system.file("extdata/koanno.txt",package = "ReverseEcologyR")
-metabolic.data <- read.delim(annodir)
-g2 <- reconstructGsMN(ko.anno)
+annodir <- system.file("extdata","koanno.tab",package = "ReverseEcologyR")
+metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
+g2 <- reconstructGsMN(metabolic.data)
 }
 \seealso{
 \code{\link{getOrgMetabolicData}}

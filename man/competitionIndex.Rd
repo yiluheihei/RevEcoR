@@ -5,10 +5,15 @@
 \usage{
 competitionIndex(g1, g2, threshold = 0)
 }
+\arguments{
+\item{g1,}{igraph object, a metabolic network}
+
+\item{g2,}{igraph object, a metabolic network, the complementary network of g1}
+
+\item{threshold,}{the cutoff of confidence score to be serve as a seed set,
+default is 0.2}
+}
 \description{
 Caculating the metabolic competition index of g1 in the presence of g2
-}
-\details{
-More details abuout the para and value see in complementarityIndex above
 }
 

@@ -177,8 +177,8 @@ igraph::print.igraph(buc.net)
 igraph::plot.igraph(buc.net, vertex.label=NA, vertex.size=5, edge.arrow.size=0.1)
 
 ## ko annotation profile species detected in a human microbiome in IMG (not in KEGG) 
-annodir <- system.file("extdata/koanno.txt",package = "ReverseEcologyR")
-metabolic.data <- read.delim(annodir)
+annodir <- system.file("extdata/koanno.tab",package = "ReverseEcologyR")
+metabolic.data <- read.delim(annodir,stringsAsFactors=FALSE)
 g2 <- reconstructGsMN(metabolic.data)
 ```
 

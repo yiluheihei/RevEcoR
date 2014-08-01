@@ -6,13 +6,9 @@
 caculateCooperationIndex(g, ..., threshold = 0)
 }
 \arguments{
-\item{g,igraph}{that represents a metabolic network, see
-\code{\link{CnstOrgMtblNet}}}
+\item{g,igraph}{that represents a metabolic network, see \code{\link{reconstructGsMN}}}
 
 \item{...,}{a list of metabolic networks or a network append to g}
-
-\item{mode,}{determins which index you want to caculate, competion or
-complementarity index, g biosynthetic support score}
 
 \item{threshold}{threshold, the cutoff of confidence score to be serve as a
 seed set, default is 0.2}

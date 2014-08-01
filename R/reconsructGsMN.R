@@ -27,9 +27,9 @@
 #'## g <- reconstructGsMN(metabolic.data)
 #'
 #'## species detected in a human microbiome
-#' annodir <- system.file("extdata/koanno.txt",package = "ReverseEcologyR")
-#' metabolic.data <- read.delim(annodir)
-#' g2 <- reconstructGsMN(ko.anno)
+#' annodir <- system.file("extdata","koanno.tab",package = "ReverseEcologyR")
+#' metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
+#' g2 <- reconstructGsMN(metabolic.data)
 
 reconstructGsMN <- function(metabolic.data){
   # delete the small group nodes

@@ -3,11 +3,16 @@
 #' Caculating the metabolic complementarity index
 #' 
 #' Caculating the metabolic complementarity index of g1 in the presence of g2
+#' 
 #'@param g1, igraph object, a metabolic network
+#'
 #'@param g2, igraph object, a metabolic network, the complementary network of g1
+#'
 #'@param threshold, the cutoff of confidence score to be serve as a seed set, 
-#'default is 0.2
+#'default is 0
+#'
 #'@return a number, range from 0 to 1
+
 complementarityIndex <- function(g1,g2, threshold=0){
   if (!is.igraph(g1) || !is.igraph(g2))
     stop("Both g1 and g2 must be igraph object")
@@ -36,7 +41,14 @@ complementarityIndex <- function(g1,g2, threshold=0){
 #'  
 #' Caculating the metabolic competition index of g1 in the presence of g2
 #' 
-#' More details abuout the para and value see in complementarityIndex above 
+#'@param g1, igraph object, a metabolic network
+#'
+#'@param g2, igraph object, a metabolic network, the complementary network of g1
+#'
+#'@param threshold, the cutoff of confidence score to be serve as a seed set, 
+#'default is 0.2
+
+
 competitionIndex <- function(g1,g2, threshold=0){
   if (!is.igraph(g1) || !is.igraph(g2))
     stop("Both g1 and g2 must be igraph object")
@@ -84,14 +96,15 @@ BSIscore <- function(g1, g2, threshold=0){
 #'Caculating the metabolic competition complementarity index among all metabolic 
 #'networks
 #'
-#'@param g,igraph that represents a metabolic network, see 
-#'\code{\link{reconstructGsMN}}
+#'@param g,igraph that represents a metabolic network, see \code{\link{reconstructGsMN}}
+#'
 #'@param ..., a list of metabolic networks or a network append to g
-#'@param mode, determins which index you want to caculate, competion or 
-#'complementarity index, g biosynthetic support score
+#'
 #'@param threshold threshold, the cutoff of confidence score to be serve as a 
 #'seed set, default is 0.2
+#'
 #'@export
+#'
 #'@details Metabolic competition index is defined as the fraction of compounds 
 #'in a species seed set of metabolic network that are alse included in its 
 #'partner; However, metabolic complementarity index is the fraction of 
@@ -107,12 +120,11 @@ BSIscore <- function(g1, g2, threshold=0){
 #'The ith row and jth col elements of the returnd matrix represents the 
 #'metabolic competition index or complementarity index of the ith network on the
 #'jth metabolic network.
+#'
 #'@return a cooperation index matrix whose nrow and ncol is equal to the number 
 #'of species to be compared, for more see details.
 
 caculateCooperationIndex <- function(g, ...,threshold=0){
-  if (!is.igraph(g))
-    stop("Not a igraph object")
   g <- vector(0,mode="list") %>%
     list.append(.,g, ...)
   competition.index <- matrix(0,length(g),length(g))

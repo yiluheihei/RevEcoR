@@ -3,7 +3,7 @@
 \alias{getSeedSets}
 \title{Identify seed compounds of each organism}
 \usage{
-getSeedSets(g, threshold = 0.2)
+getSeedSets(g, threshold = 0)
 }
 \arguments{
 \item{g,}{an igraph object which represents a given organism-specific metaboliic network}
