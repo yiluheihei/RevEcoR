@@ -2,13 +2,16 @@
 \docType{methods}
 \name{getGsMN-methods}
 \alias{getGsMN}
+\alias{getGsMN,seedset-method}
 \alias{getGsMN-methods}
 \title{The genome scale metabolic network}
 \usage{
-getGsMN(object, field)
+getGsMN(object)
+
+\S4method{getGsMN}{seedset}(object)
 }
 \arguments{
-\item{obj,}{\code{seedset} class}
+\item{object,}{\code{seedset} class}
 }
 \value{
 a igraph

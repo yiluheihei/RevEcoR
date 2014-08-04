@@ -2,13 +2,16 @@
 \docType{methods}
 \name{confidencescore-methods}
 \alias{confidencescore}
+\alias{confidencescore,seedset-method}
 \alias{confidencescore-methods}
 \title{Conficence score}
 \usage{
-confidencescore(object, field)
+confidencescore(object)
+
+\S4method{confidencescore}{seedset}(object)
 }
 \arguments{
-\item{obj,}{\code{seedset} class}
+\item{object,}{\code{seedset} class}
 }
 \value{
 a vector

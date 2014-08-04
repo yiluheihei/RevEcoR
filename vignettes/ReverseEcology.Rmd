@@ -122,8 +122,20 @@ graph that connect nodes in two different components. Then, detectting the seed 
 
 Until **ReverseEcologyR** is ready for CRAN or Bioconductor, you can install it directly from GitHub using devtools.
 
-```{r eval=FALSE,echo=TRUE}
-install.packages("devtools")
+However, `install_github` can only install the dependencies that have been released on CRAN. Three dependencencies for 
+`ReveseEcologyR were released on **Bioconductor**£º`Biobase`, `KEGGREST` and `mmnet`. Users should install these three 
+packages manually first.
+
+```{r,eval=FALSE}
+source("http://bioconductor.org/biocLite.R")
+biocLite(c("mmnet","KEGGREST","Biobase"))  
+```
+
+Then install `ReverseEcologyR` using devtools.
+
+```{r,eval=FALSE}
+if (!require(devtools)£©
+  install.packages("devtools")
 devtools::install_github("yiluheihei/ReverseEcologyR")
 ```
 

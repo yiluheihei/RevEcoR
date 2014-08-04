@@ -2,13 +2,16 @@
 \docType{methods}
 \name{nonseed-methods}
 \alias{nonseed}
+\alias{nonseed,seedset-method}
 \alias{nonseed-methods}
 \title{Non seed of the network}
 \usage{
-nonseed(object, field)
+nonseed(object)
+
+\S4method{nonseed}{seedset}(object)
 }
 \arguments{
-\item{obj,}{\code{seedset} class}
+\item{object,}{\code{seedset} class}
 }
 \value{
 a vector

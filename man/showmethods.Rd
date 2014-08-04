@@ -5,17 +5,15 @@
 \alias{show-methods}
 \title{The show generic function}
 \usage{
-\S4method{show}{seedset}(object)
+show(object)
 }
 \arguments{
-\item{obj,}{\code{seedset} class}
-
-\item{object}{Any R object}
+\item{object,}{\code{seedset} class}
 }
 \description{
 Show a short summary of seedset object
 }
 \seealso{
-\code{\link{seedset-class}}
+\code{\link{seedset-class}},\code{\link{show}}
 }
 

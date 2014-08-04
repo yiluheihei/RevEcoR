@@ -27,6 +27,6 @@ All the compound in the same source SCC all equally to be included
   seed.
 }
 \seealso{
-\code{\link{KosarajuSCC}}
+\code{\link{KosarajuSCC}},\code{\link{seedset-class}}
 }
 

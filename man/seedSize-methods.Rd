@@ -2,13 +2,16 @@
 \docType{methods}
 \name{seedSize-methods}
 \alias{seedSize}
+\alias{seedSize,seedset-method}
 \alias{seedSize-methods}
 \title{Size of the each seed source component}
 \usage{
 seedSize(object)
+
+\S4method{seedSize}{seedset}(object)
 }
 \arguments{
-\item{obj,}{\code{seedset} class}
+\item{object,}{\code{seedset} class}
 }
 \value{
 a vector represents size of each source seed componet of network

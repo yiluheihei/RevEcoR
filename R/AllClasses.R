@@ -20,8 +20,7 @@
 #'@slot GsMN, a igraph network
 #'@slot seeds, a character list represents seeds of a given metabolic 
 #'      network which is composed of  the KEGG compound index.
-#'@slot confidenceScore, a numeric list represents confidence sore of the 
-#'      seed
+#'      
 #'@section method:
 #'    \itemize{
 #'      \item{getGsMN, \code{signature(object = "seedset")}:
@@ -54,7 +53,7 @@ setClass("seedset", slot=list(GsMN="igraph",seeds="list"),
 #'
 #'@export 
 #'@rdname seedSize-methods
-#'@param obj, \code{seedset} class
+#'@param object, \code{seedset} class
 #'@name seedSize-methods
 #'@aliases seedSize seedSize-methods 
 #'@docType methods
@@ -65,6 +64,9 @@ setClass("seedset", slot=list(GsMN="igraph",seeds="list"),
 setGeneric("seedSize",
   function(object){standardGeneric("seedSize")})
 
+#' @rdname seedSize-methods
+#' @aliases seedSize seedSize-methods
+#' 
 setMethod("seedSize",signature="seedset",
   function(object){
     listLen(object@seeds)
@@ -77,7 +79,7 @@ setMethod("seedSize",signature="seedset",
 #'
 #'@export 
 #'@rdname getGsMN-methods
-#'@param obj, \code{seedset} class
+#'@param object, \code{seedset} class
 #'@name getGsMN-methods
 #'@aliases getGsMN getGsMN-methods 
 #'@docType methods
@@ -86,8 +88,11 @@ setMethod("seedSize",signature="seedset",
 
 
 setGeneric("getGsMN",
-  function(object, field){standardGeneric("getGsMN")})
+  function(object){standardGeneric("getGsMN")})
 
+#' @rdname getGsMN-methods
+#' @aliases getGsMN getGsMN-methods
+#' 
 setMethod("getGsMN",signature="seedset",
   function(object){
     object@GsMN
@@ -100,7 +105,7 @@ setMethod("getGsMN",signature="seedset",
 #'
 #'@export 
 #'@rdname nonseed-methods
-#'@param obj, \code{seedset} class
+#'@param object, \code{seedset} class
 #'@name nonseed-methods
 #'@aliases nonseed nonseed-methods 
 #'@docType methods
@@ -109,9 +114,12 @@ setMethod("getGsMN",signature="seedset",
 
 
 setGeneric("nonseed",
-  function(object, field){standardGeneric("nonseed")})
+  function(object){standardGeneric("nonseed")})
 
-setMethod("nonseed",signature=c(obj="seedset"),
+#' @rdname nonseed-methods
+#' @aliases nonseed nonseed-methods
+#' 
+setMethod("nonseed",signature="seedset",
   function(object){
     non.seed  <- V(object@GsMN)$name
     non.seed  <- setdiff(non.seed,unlist(object@seeds))
@@ -125,7 +133,7 @@ setMethod("nonseed",signature=c(obj="seedset"),
 #'
 #'@export 
 #'@rdname confidencescore-methods
-#'@param obj, \code{seedset} class
+#'@param object, \code{seedset} class
 #'@name confidencescore-methods
 #'@aliases confidencescore confidencescore-methods 
 #'@docType methods
@@ -134,31 +142,35 @@ setMethod("nonseed",signature=c(obj="seedset"),
 
 
 setGeneric("confidencescore",
-  function(object, field){standardGeneric("confidencescore")})
+  function(object){standardGeneric("confidencescore")})
 
-setMethod("confidencescore",signature=c(obj="seedset"),
+#' @rdname confidencescore-methods
+#' @aliases confidencescore confidencescore-methods
+
+setMethod("confidencescore",signature="seedset",
   function(object){
     confidence.score  <- 1/seedSize(object) 
       mapply(function(x,y)rep(x,y),confidence.score,seedSize(object))
   }
 )
-#'  the length generic function
+
+#' the length of the seed set
 #'
 #' Caculate the number of the seed source components.
 #'
-#'@export 
-#'@rdname length-methods
-#'@param obj, \code{length} class
+#'@export
+#'@usage length(x)
+#'@param x, \code{seed-set} class
 #'@name length-methods
+#'@rdname length-methods
 #'@aliases length length-methods 
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
 #'@return a interger
-
 setMethod("length",signature="seedset",
-  function(x){
-    length(x@seeds)
-  }
+          function(x){
+            length(x@seeds)
+          }
 )
 
 #' The show generic function
@@ -167,18 +179,17 @@ setMethod("length",signature="seedset",
 #'
 #'@export 
 #'@rdname showmethods
-#'@param obj, \code{seedset} class
+#'@usage show(object)
+#'@param object, \code{seedset} class
 #'@name show-methods
-#'@aliases show show-methods 
+#'@aliases show show-methods
 #'@docType methods
-#'@seealso \code{\link{seedset-class}}
-
-
-setMethod("show",signature=c(obj="seedset"),
+#'@seealso \code{\link{seedset-class}},\code{\link{show}} 
+setMethod("show",signature="seedset",
   function(object){
     cat("Object of class ", class(object), "\n", sep = "")
     igraph::print.igraph(object@GsMN)
-    cat("seedset length ", length(object), "\n")
+    cat("seedset length ",length(object@seeds), "\n")
   }
 )
 

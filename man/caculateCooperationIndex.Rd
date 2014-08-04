@@ -6,7 +6,7 @@
 caculateCooperationIndex(g, ..., threshold = 0)
 }
 \arguments{
-\item{g,igraph}{that represents a metabolic network, see \code{\link{reconstructGsMN}}}
+\item{g,}{igraph that represents a metabolic network, see \code{\link{reconstructGsMN}}}
 
 \item{...,}{a list of metabolic networks or a network append to g}
 

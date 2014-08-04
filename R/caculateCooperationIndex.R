@@ -96,7 +96,7 @@ BSIscore <- function(g1, g2, threshold=0){
 #'Caculating the metabolic competition complementarity index among all metabolic 
 #'networks
 #'
-#'@param g,igraph that represents a metabolic network, see \code{\link{reconstructGsMN}}
+#'@param g, igraph that represents a metabolic network, see \code{\link{reconstructGsMN}}
 #'
 #'@param ..., a list of metabolic networks or a network append to g
 #'
@@ -127,6 +127,8 @@ BSIscore <- function(g1, g2, threshold=0){
 caculateCooperationIndex <- function(g, ...,threshold=0){
   g <- vector(0,mode="list") %>%
     list.append(.,g, ...)
+  if (length(g)<2)
+    stop("At least two species to compare")
   competition.index <- matrix(0,length(g),length(g))
   complementarity.index <- matrix(0,length(g),length(g))
   bsi.score <- matrix(0,length(g),length(g))

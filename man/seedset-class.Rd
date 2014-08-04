@@ -11,10 +11,7 @@ Object representing the seed sets of a given metabolic network
 \item{\code{GsMN,}}{a igraph network}
 
 \item{\code{seeds,}}{a character list represents seeds of a given metabolic
-network which is composed of  the KEGG compound index.}
-
-\item{\code{confidenceScore,}}{a numeric list represents confidence sore of the
-seed}
+     network which is composed of  the KEGG compound index.}
 }}
 \section{method}{
 
@@ -32,5 +29,8 @@ seed}
      \item{confidencescore, \code{signature(object = "seedset")}:s
        confidence score of the seed set}
  }
+}
+\seealso{
+\code{\link{getSeedSets}}
 }
 

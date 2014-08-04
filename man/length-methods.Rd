@@ -3,14 +3,12 @@
 \name{length-methods}
 \alias{length}
 \alias{length-methods}
-\title{the length generic function}
+\title{the length of the seed set}
 \usage{
-\S4method{length}{seedset}(x)
+length(x)
 }
 \arguments{
-\item{obj,}{\code{length} class}
-
-\item{x}{an \R object.  For replacement, a vector or factor.}
+\item{x,}{\code{seed-set} class}
 }
 \value{
 a interger
