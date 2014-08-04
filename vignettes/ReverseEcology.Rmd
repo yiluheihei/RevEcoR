@@ -189,11 +189,12 @@ As the interactions with the environment was reflected in the metabolic networks
 
 Apparantly, organisms can survive in a wide range of enviromnets and may activate only a subset of the pathways in the network of each environment, using a different set of exogenously acquired compounds (termed seed set). The seed set of the network is defined as the minimal set of compounds in the network that allows the synthesis of all other compouds, and can serve as a good proxy for its environment and can be conceived as the essential and effective biochemical environment. 
 
-`getSeedSets` was used to detect the seed set of a metabolic network. It can help us to get the compound that organisms are exogenously acquired compouds from the environment, representing the organism's nutritional profile. This algorithm is based on a fast method Kasaraju algorithm for SCC decomposition which is implementaed in `Kasaraju`. For more details, see `?getSeedSets` and `?KasarajuSCC`.
+`getSeedSets` was used to detect the seed set of a metabolic network which returns a seedset-class object. Futhermore, some methods was supported for seedset-class, e.g length, nonseeds. For more details on seedset-class, see `?seedset-class`.It can help us to get the compound that organisms are exogenously acquired compouds from the environment, representing the organism's nutritional profile. This algorithm is based on a fast method Kasaraju algorithm for SCC decomposition which is implementaed in `Kasaraju`. For more details, see `?getSeedSets` and `?KasarajuSCC`.
 
 ```{r,eval=TRUE,echo=TRUE}
 seed.set <- getSeedSets(buc.net, 0.2)
-head(seed.set$seedset)
+show(seed.set)
+head(seed.set@seeds)
 ```
 <a id="cooperation"></a>
 ### Host-microbe and microbe-microbe cooperation analysis 

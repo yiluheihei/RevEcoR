@@ -6,22 +6,25 @@
 getSeedSets(g, threshold = 0)
 }
 \arguments{
-\item{g,}{an igraph object which represents a given organism-specific metaboliic network}
+\item{g,}{an igraph object which represents a given organism-specific
+metaboliic network}
 
 \item{threshold,}{numeric constant ranges from 0 to 1, default is 0.}
 }
 \value{
-seed set compounds of the given organism-specific metabolic network,
-genome scale metabolic network is also returned
+a two-length list which consists of network and the seed set
+  compounds of the given organism-specific metabolic network,
 }
 \description{
-Detect a given metabolic network and idendity the seed compounds of each organism
+Detect a given metabolic network and idendity the seed compounds of each
+organism
 }
 \details{
-All the compound in the same source SCC all equally to be included in the seed set,
-each of these compounds was assigned a confidence level, C=1/(size of souce SCC), denoting
-the compounds probability of being a seed. This threshold was used to determin whether a
-compound should be a seed.
+All the compound in the same source SCC all equally to be included
+  in the seed set, each of these compounds was assigned a confidence level,
+  C=1/(size of souce SCC), denoting the compounds probability of being a
+  seed. This threshold was used to determin whether a compound should be a
+  seed.
 }
 \seealso{
 \code{\link{KosarajuSCC}}

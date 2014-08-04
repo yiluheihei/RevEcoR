@@ -16,8 +16,8 @@
 complementarityIndex <- function(g1,g2, threshold=0){
   if (!is.igraph(g1) || !is.igraph(g2))
     stop("Both g1 and g2 must be igraph object")
-  seed.set1 <- getSeedSets(g1,threshold)
-  seed.set2 <- getSeedSets(g2, threshold)
+  seed.set1 <- getSeedSets(g1,threshold)@seeds
+  seed.set2 <- getSeedSets(g2, threshold)@seeds
   nonseed2 <- setdiff(V(g2)$name, unlist(seed.set2))
   complement.cpd <- setdiff(unlist(seed.set1),unlist(seed.set2)) %>%
     intersect(., nonseed2)
@@ -52,8 +52,8 @@ complementarityIndex <- function(g1,g2, threshold=0){
 competitionIndex <- function(g1,g2, threshold=0){
   if (!is.igraph(g1) || !is.igraph(g2))
     stop("Both g1 and g2 must be igraph object")
-  seed.set1 <- getSeedSets(g1,threshold)
-  seed.set2 <- getSeedSets(g2, threshold)
+  seed.set1 <- getSeedSets(g1,threshold)@seeds
+  seed.set2 <- getSeedSets(g2, threshold)@seeds
   intersect.seed <- intersect(unlist(seed.set1),unlist(seed.set2))
   if(length(intersect.seed)){
     norm.seed <- lapply(intersect.seed,function(x)lapply(seed.set1,
@@ -73,8 +73,8 @@ competitionIndex <- function(g1,g2, threshold=0){
 BSIscore <- function(g1, g2, threshold=0){
   if (!is.igraph(g1) || !is.igraph(g2))
     stop("Both g1 and g2 must be igraph object")
-  seed.set1 <- getSeedSets(g1,threshold)
-  seed.set2 <- getSeedSets(g2, threshold)
+  seed.set1 <- getSeedSets(g1,threshold)@seeds
+  seed.set2 <- getSeedSets(g2, threshold)@seeds
   intersect.seed <- intersect(unlist(seed.set1), V(g2)$name)
   if(length(intersect.seed)){
     norm.seed <- lapply(intersect.seed,function(x)lapply(seed.set1,

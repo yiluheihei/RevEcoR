@@ -11,7 +11,7 @@ complementarityIndex(g1, g2, threshold = 0)
 \item{g2,}{igraph object, a metabolic network, the complementary network of g1}
 
 \item{threshold,}{the cutoff of confidence score to be serve as a seed set,
-default is 0.2}
+default is 0}
 }
 \value{
 a number, range from 0 to 1

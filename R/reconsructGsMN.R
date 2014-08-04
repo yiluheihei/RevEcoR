@@ -59,7 +59,7 @@ reconstructGsMN <- function(metabolic.data){
     index <- match(ko,RefDbcache$ko)
     metabolites <- RefDbcache[c("substrate","product")] %>%
       lapply(.,"[",index)
-    metabolites <- data.frame(ko=ko,substrate=do.call(cbind,metabolites[1]),
+    metabolites <- data.frame(substrate=do.call(cbind,metabolites[1]),
       product=do.call(cbind,metabolites[2]),row.names=NULL,stringsAsFactors=FALSE)
   }
   node <- unique(unlist(metabolites))
