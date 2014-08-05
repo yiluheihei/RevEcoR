@@ -18,7 +18,7 @@ Object representing the seed sets of a given metabolic network
    \itemize{
      \item{getGsMN, \code{signature(object = "seedset")}:
        get the genome scale metabolic network whose seed set is caculated}
-     \item{length, \code{signature(object = "seedset")}:
+     \item{len, \code{signature(object = "seedset")}:
        return the number of source SCC}
      \item{seedSize, \code{signature(object = "seedset")}:
        returns the sizes of each source SCCs}
@@ -26,7 +26,7 @@ Object representing the seed sets of a given metabolic network
        the non seeds of the GsMN}
      \item{show, \code{signature(object = "seedset")}:
        show the short summary of a seedset class}
-     \item{confidencescore, \code{signature(object = "seedset")}:s
+     \item{confidencescore, \code{signature(object = "seedset")}:
        confidence score of the seed set}
  }
 }

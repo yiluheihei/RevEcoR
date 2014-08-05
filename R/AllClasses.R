@@ -25,7 +25,7 @@
 #'    \itemize{
 #'      \item{getGsMN, \code{signature(object = "seedset")}:
 #'        get the genome scale metabolic network whose seed set is caculated}
-#'      \item{length, \code{signature(object = "seedset")}:
+#'      \item{len, \code{signature(object = "seedset")}:
 #'        return the number of source SCC}
 #'      \item{seedSize, \code{signature(object = "seedset")}:
 #'        returns the sizes of each source SCCs}
@@ -33,7 +33,7 @@
 #'        the non seeds of the GsMN}
 #'      \item{show, \code{signature(object = "seedset")}:
 #'        show the short summary of a seedset class}
-#'      \item{confidencescore, \code{signature(object = "seedset")}:s
+#'      \item{confidencescore, \code{signature(object = "seedset")}:
 #'        confidence score of the seed set}
 #'  }
 #' @name seedset-class
@@ -46,15 +46,14 @@ setClass("seedset", slot=list(GsMN="igraph",seeds="list"),
          prototype = list(GsMN=NULL,seeds=NULL),
          validity = .check.seedset)
 
-
 #' Size of the each seed source component
 #'
 #' Caculate the size of each seed source component.
 #'
-#'@export 
+#'@exportMethod seedSize
 #'@rdname seedSize-methods
+#'@name seedSize-methods 
 #'@param object, \code{seedset} class
-#'@name seedSize-methods
 #'@aliases seedSize seedSize-methods 
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
@@ -63,10 +62,8 @@ setClass("seedset", slot=list(GsMN="igraph",seeds="list"),
 
 setGeneric("seedSize",
   function(object){standardGeneric("seedSize")})
-
 #' @rdname seedSize-methods
 #' @aliases seedSize seedSize-methods
-#' 
 setMethod("seedSize",signature="seedset",
   function(object){
     listLen(object@seeds)
@@ -77,7 +74,7 @@ setMethod("seedSize",signature="seedset",
 #'
 #' T he genome scale metabolic network (GsMN) whose seed set is caculated.
 #'
-#'@export 
+#'@exportMethod getGsMN
 #'@rdname getGsMN-methods
 #'@param object, \code{seedset} class
 #'@name getGsMN-methods
@@ -89,10 +86,8 @@ setMethod("seedSize",signature="seedset",
 
 setGeneric("getGsMN",
   function(object){standardGeneric("getGsMN")})
-
 #' @rdname getGsMN-methods
 #' @aliases getGsMN getGsMN-methods
-#' 
 setMethod("getGsMN",signature="seedset",
   function(object){
     object@GsMN
@@ -103,7 +98,7 @@ setMethod("getGsMN",signature="seedset",
 #'
 #' Non seed of the network.
 #'
-#'@export 
+#'@exportMethod nonseed
 #'@rdname nonseed-methods
 #'@param object, \code{seedset} class
 #'@name nonseed-methods
@@ -115,10 +110,8 @@ setMethod("getGsMN",signature="seedset",
 
 setGeneric("nonseed",
   function(object){standardGeneric("nonseed")})
-
 #' @rdname nonseed-methods
 #' @aliases nonseed nonseed-methods
-#' 
 setMethod("nonseed",signature="seedset",
   function(object){
     non.seed  <- V(object@GsMN)$name
@@ -131,7 +124,7 @@ setMethod("nonseed",signature="seedset",
 #'
 #' Caculate confidence score of seed set 
 #'
-#'@export 
+#'@exportMethod confidencescore 
 #'@rdname confidencescore-methods
 #'@param object, \code{seedset} class
 #'@name confidencescore-methods
@@ -143,10 +136,8 @@ setMethod("nonseed",signature="seedset",
 
 setGeneric("confidencescore",
   function(object){standardGeneric("confidencescore")})
-
 #' @rdname confidencescore-methods
 #' @aliases confidencescore confidencescore-methods
-
 setMethod("confidencescore",signature="seedset",
   function(object){
     confidence.score  <- 1/seedSize(object) 
@@ -158,18 +149,23 @@ setMethod("confidencescore",signature="seedset",
 #'
 #' Caculate the number of the seed source components.
 #'
-#'@export
-#'@usage length(x)
-#'@param x, \code{seed-set} class
-#'@name length-methods
-#'@rdname length-methods
-#'@aliases length length-methods 
+#'@exportMethod len
+#'@param object, \code{seed-set} class
+#'@name len-methods
+#'@rdname len-methods
+#'@aliases len len-methods 
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
 #'@return a interger
-setMethod("length",signature="seedset",
-          function(x){
-            length(x@seeds)
+setGeneric("len",
+           function(object)
+             standardGeneric("len")
+)
+#' @rdname len-methods
+#' @aliases len len-methods
+setMethod("len",valueClass = c("numeric"),signature="seedset",
+          function(object){
+            return(length(object@seeds))
           }
 )
 
@@ -177,14 +173,10 @@ setMethod("length",signature="seedset",
 #'
 #' Show a short summary of seedset object
 #'
-#'@export 
-#'@rdname showmethods
-#'@usage show(object)
-#'@param object, \code{seedset} class
-#'@name show-methods
-#'@aliases show show-methods
+#'@exportMethod show 
 #'@docType methods
-#'@seealso \code{\link{seedset-class}},\code{\link{show}} 
+#'@rdname show-methods
+#'@aliases show show-methods
 setMethod("show",signature="seedset",
   function(object){
     cat("Object of class ", class(object), "\n", sep = "")
