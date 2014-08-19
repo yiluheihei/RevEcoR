@@ -125,7 +125,7 @@ BSIscore <- function(g1, g2, threshold=0){
 #'of species to be compared, for more see details.
 
 caculateCooperationIndex <- function(g, ...,threshold=0){
-  g <- list(g, ...)
+  g <- c(g, list(...))
   if (length(g)<2)
     stop("At least two species to compare")
   competition.index <- matrix(0,length(g),length(g))
