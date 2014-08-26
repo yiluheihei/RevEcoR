@@ -50,11 +50,14 @@ reconstructGsMN <- function(metabolic.data){
     metabolites <- metabolic.data[,c(2,3)]
   }else{
     message("metabolic.data is the KEGG Orthology annotation profile of the species...")
-    if (!file.exists(file.path(Sys.getenv("home"),".mmnet","RefDbcache.rda"))){
-      message("Update the KEGG pathway data and save local...")
-      updateKEGGPathway()
+    if (FALSE){
+      if (!file.exists(file.path(Sys.getenv("home"),".mmnet","RefDbcache.rda"))){
+        message("Update the KEGG pathway data and save local...")
+        updateKEGGPathway()
+      }
+      load(file.path(Sys.getenv("home"),".mmnet","RefDbcache.rda"))
     }
-    load(file.path(Sys.getenv("home"),".mmnet","RefDbcache.rda"))
+    data(RefDbcache,package="mmnet")
     ko <- intersect(RefDbcache$ko, metabolic.data[[1]])
     index <- match(ko,RefDbcache$ko)
     metabolites <- RefDbcache[c("substrate","product")] %>%

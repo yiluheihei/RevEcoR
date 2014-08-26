@@ -14,7 +14,7 @@ confidencescore(object)
 \item{object,}{\code{seedset} class}
 }
 \value{
-a vector
+a list
 }
 \description{
 Caculate confidence score of seed set

@@ -21,8 +21,7 @@ Imports:
     KEGGREST,
     magrittr,
     mmnet,
-    gtools,
-    rlist
+    gtools
 Suggests:
     knitr
 VignetteBuilder: knitr

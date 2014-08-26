@@ -131,7 +131,7 @@ setMethod("nonseed",signature="seedset",
 #'@aliases confidencescore confidencescore-methods 
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
-#'@return a vector
+#'@return a list
 
 
 setGeneric("confidencescore",
@@ -156,7 +156,7 @@ setMethod("confidencescore",signature="seedset",
 #'@aliases len len-methods 
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
-#'@return a interger
+#'@return an interger
 setGeneric("len",
            function(object)
              standardGeneric("len")
@@ -179,9 +179,17 @@ setMethod("len",valueClass = c("numeric"),signature="seedset",
 #'@aliases show show-methods
 setMethod("show",signature="seedset",
   function(object){
+    direction  <- igraph::is.directed(object@GsMN)
+    if (direction){
+      direction  <- NULL
+    }else{
+      direction  <- "Directed Network"
+    }
+    nodes.no  <- length(V(object@GsMN))
+    edges.no  <- length(E(object@GsMN))
     cat("Object of class ", class(object), "\n", sep = "")
-    igraph::print.igraph(object@GsMN)
-    cat("seedset length ",length(object@seeds), "\n")
+    cat("  ", "IGRAPH:",direction,"--", nodes.no,"nodes",edges.no,"edges","--","\n")
+    cat("  seedset length ",length(object@seeds), "\n")
   }
 )
 

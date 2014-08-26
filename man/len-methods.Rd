@@ -14,7 +14,7 @@ len(object)
 \item{object,}{\code{seed-set} class}
 }
 \value{
-a interger
+an interger
 }
 \description{
 Caculate the number of the seed source components.

@@ -125,7 +125,7 @@ BSIscore <- function(g1, g2, threshold=0){
 #'of species to be compared, for more see details.
 
 caculateCooperationIndex <- function(g, ...,threshold=0){
-  if (!is.list(g)){
+  if (is.igraph(g)){
     g <- c(list(g), list(...))
   }else{
     g <- c(g, list(...))
@@ -150,6 +150,9 @@ caculateCooperationIndex <- function(g, ...,threshold=0){
   bsi.score[index[i,1],index[i,2]] = bsi.v[i]
   #row.names(interaction.index) <- paste0(rep("g",length(g)),seq(length(g)))
   #colnames(interaction.index) <- row.names(interaction.index)
+  row.names(competition.index)  <- names(g)
+  colnames(competition.index)  <- names(g)
+  row.names(complementarity.index) = colnames(complementarity.index)  <- names(g)
   return(list(competition.index = competition.index, 
     complementarity.index = complementarity.index, bsi.score = bsi.score))
 }
