@@ -174,6 +174,7 @@ setMethod("len",valueClass = c("numeric"),signature="seedset",
 #' Show a short summary of seedset object
 #'
 #'@exportMethod show 
+#'@param object, \code{seed-set} class
 #'@docType methods
 #'@rdname show-methods
 #'@aliases show show-methods

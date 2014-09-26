@@ -1,6 +1,6 @@
 <!--
 %\VignetteEngine{knitr::docco_linear}
-%\VignetteIndexEntry{ReverseEcology}
+%\VignetteIndexEntry{RevEcoR}
 -->
 ```{r setup, include=FALSE}
 library(knitr)
