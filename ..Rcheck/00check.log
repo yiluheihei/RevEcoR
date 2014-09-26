@@ -1,10 +1,10 @@
-* using log directory 'D:/R/reverse-ecology/ReverseEcologyR/..Rcheck'
+* using log directory 'D:/R/reverse-ecology/RevEcoR/..Rcheck'
 * using R version 3.1.1 (2014-07-10)
 * using platform: i386-w64-mingw32 (32-bit)
 * using session charset: CP936
 * checking for file './DESCRIPTION' ... OK
 * checking extension type ... Package
-* this is package 'ReverseEcologyR' version '0.99.0'
+* this is package 'RevEcoR' version '0.99.0'
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -197,7 +197,7 @@ Found the following hidden files and directories:
 These were most likely included in error. See section 'Package
 structure' in the 'Writing R Extensions' manual.
 * checking for portable file names ... OK
-* checking whether package 'ReverseEcologyR' can be installed ... OK
+* checking whether package 'RevEcoR' can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
 * checking DESCRIPTION meta-information ... OK
@@ -215,5 +215,5 @@ Loading this package had a fatal error status code 1
 Loading log:
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   不存在叫'Biobase'这个名字的程辑包
-错误: 'ReverseEcologyR'程辑包或名字空间载入失败，
+错误: 'RevEcoR'程辑包或名字空间载入失败，
 停止执行

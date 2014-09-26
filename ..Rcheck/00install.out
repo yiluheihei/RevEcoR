@@ -1,4 +1,4 @@
-* installing *source* package 'ReverseEcologyR' ...
+* installing *source* package 'RevEcoR' ...
 ** R
 ** inst
 ** preparing package for lazy loading
@@ -9,4 +9,4 @@ Note: the specification for S3 class "AsIs" in package 'RJSONIO' seems equivalen
 ** installing vignettes
 ** testing if installed package can be loaded
 Note: the specification for S3 class "AsIs" in package 'RJSONIO' seems equivalent to one from package 'BiocGenerics': not turning on duplicate class definitions for this class.
-* DONE (ReverseEcologyR)
+* DONE (RevEcoR)

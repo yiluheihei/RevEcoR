@@ -32,7 +32,7 @@ database. Several functions, such as \code{link{read.table}} and
 ## g <- reconstructGsMN(metabolic.data)
 
 ## species detected in a human microbiome
-annodir <- system.file("extdata","koanno.tab",package = "ReverseEcologyR")
+annodir <- system.file("extdata","koanno.tab",package = "RevEcoR")
 metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
 g2 <- reconstructGsMN(metabolic.data)
 }

@@ -4,7 +4,7 @@
 -->
 ```{r setup, include=FALSE}
 library(knitr)
-library(ReverseEcologyR)
+library(RevEcoR)
 opts_chunk$set(fig.width=8, fig.height=5)
 knit_hooks$set(htmlcap = function(before, options, envir) {
   if(!before) {
@@ -53,7 +53,7 @@ set.seed(60823316)
  </STYLE>
 
 
-## ReverseEcologyR -- Reverse ecology linking organism(s) and their environments 
+## RevEcoR -- Reverse ecology linking organism(s) and their environments 
 ========================================================
 
 ###### Yang Cao  <yiluheihei@gmail.com>, Fei Li <pittacus@gmail.com>  
@@ -99,7 +99,7 @@ applied to a small scale and for ralatively well-studied systems.
 ### Introduction
 
 This manual is a brief introduction to structure, funcitons and usage of 
-**ReverseEcologyR** package. The **ReverseEcologyR** package implementation a 
+**RevEcoR** package. The **RevEcoR** package implementation a 
 large-scale reconstruction of metabolic environmnets using a cross-species 
 analysis, idenditifying the set of compounds with a graph-based algorithm mentioned
 in [Borenstein *et al.*](#seedset) that each species extracts from its 
@@ -120,7 +120,7 @@ graph that connect nodes in two different components. Then, detectting the seed 
 <a id="install"></a>
 ### Installation
 
-Until **ReverseEcologyR** is ready for CRAN or Bioconductor, you can install it directly from GitHub using devtools.
+Until **RevEcoR** is ready for CRAN or Bioconductor, you can install it directly from GitHub using devtools.
 
 However, `install_github` can only install the dependencies that have been released on CRAN. Three dependencencies for 
 `ReveseEcologyR were released on **Bioconductor**??`Biobase`, `KEGGREST` and `mmnet`. Users should install these three 
@@ -131,20 +131,20 @@ source("http://bioconductor.org/biocLite.R")
 biocLite(c("mmnet","KEGGREST","Biobase"))  
 ```
 
-Then install `ReverseEcologyR` using devtools.
+Then install `RevEcoR` using devtools.
 
 ```{r,eval=FALSE}
 if (!require(devtools)??
   install.packages("devtools")
-devtools::install_github("yiluheihei/ReverseEcologyR")
+devtools::install_github("yiluheihei/RevEcoR")
 ```
 
 You'll also need to make sure your machine is able to build packages from source. See [Package Development Prerequisites](https://support.rstudio.com/hc/en-us/articles/200486498-Package-Development-Prerequisites) for the tools needed for your operating system.
 
-After installation, you can load **ReverseEcologyR** into current workspace by typing or pasting the following codes:
+After installation, you can load **RevEcoR** into current workspace by typing or pasting the following codes:
 
 ```{r eval=TRUE}
-library(ReverseEcologyR)
+library(RevEcoR)
 ```
 
 <a id="metadata"></a>
@@ -189,7 +189,7 @@ igraph::print.igraph(buc.net)
 igraph::plot.igraph(buc.net, vertex.label=NA, vertex.size=5, edge.arrow.size=0.1)
 
 ## ko annotation profile species detected in a human microbiome in IMG (not in KEGG) 
-annodir <- system.file("extdata/koanno.tab",package = "ReverseEcologyR")
+annodir <- system.file("extdata/koanno.tab",package = "RevEcoR")
 metabolic.data <- read.delim(annodir,stringsAsFactors=FALSE)
 g2 <- reconstructGsMN(metabolic.data)
 ```

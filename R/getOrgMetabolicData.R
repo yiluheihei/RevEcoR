@@ -106,7 +106,7 @@ getOrgMetabolicData <- function(org, path = Sys.getenv("home"), refresh = FALSE)
   }
   
   ##-------------------------------------------------------------##
-  path <- sprintf("%s/%s", path, ".ReverseEcologyR")
+  path <- sprintf("%s/%s", path, ".RevEcoR")
   if (!exists(path)) 
     dir.create(path, showWarnings = FALSE)
   metabolic.data <- sprintf("%s/%s", path, "MetabolicData.rda")

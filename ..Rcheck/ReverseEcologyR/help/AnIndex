@@ -1,4 +1,4 @@
-ReverseEcologyR-package	ReverseEcologyR
+RevEcoR-package	RevEcoR
 %.%	compose
 caculateCooperationIndex	caculateCooperationIndex
 competitionIndex	competitionIndex
@@ -20,7 +20,7 @@ nonseed	nonseed-methods
 nonseed,seedset-method	nonseed-methods
 nonseed-methods	nonseed-methods
 reconstructGsMN	reconstructGsMN
-ReverseEcologyR	ReverseEcologyR
+RevEcoR	RevEcoR
 seedset-class	seedset-class
 seedSize	seedSize-methods
 seedSize,seedset-method	seedSize-methods
