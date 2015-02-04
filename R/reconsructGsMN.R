@@ -1,26 +1,34 @@
 #'@title Reconstuction of the specific-organism genome-scale metabolic network
-#'
-#'@description Reconstruction of genome-scale metabolic network (GsMN) whose
-#'nodes represents compounds and whose edges represents reactions.
-#'
-#'@param metabolic.data, df, more details see function \code{getOrgMetabolicData}
-#'and \code{details}
-#'
+#'  
+#'@description Reconstruction of genome-scale metabolic network (GsMN) whose 
+#'  nodes represents compounds and whose edges represents reactions.
+#'  
+#'@param metabolic.data, df or a character vector. More details see function 
+#'  \code{getOrgMetabolicData} and \code{details}
+#'@param threshold numeric, Nodes belonging to components with fewer than the 
+#'  value of threshold nodes will be ignored. This is a good option for networks
+#'  that contain many small and trivial components. Default is 10.
+#'@param is.gaint logical, Ignore all nodes except those in the giant component:
+#'  selecting the only main largest component (connected set of nodes) of the
+#'  network. All smaller components will be ignored. This is a good option for
+#'  networks with a dominant component. Default is TRUE.
+#'  
 #'@details The input of this function can be of two forms. If organims is 
-#'collected in KEGG database, it can be obtained with \code{getOrgMetabolicData}. 
-#'If not, \code{metabolic.data} could be a  table format file which contains the
-#'KEGG Orthology annotated information on this organism, e.g. we can download 
-#'this KO annotation profile in the \url{https://img.jgi.doe.gov} website for 
-#'species detected in a human microbime which not contained in KEGG organism 
-#'database. Several functions, such as \code{link{read.table}} and 
-#'\code{\link{read.delim}} could help us to read KO annotation profile.
-#'
+#'  collected in KEGG database, it can be obtained with 
+#'  \code{getOrgMetabolicData} which is a data frame. Otherwise, 
+#'  \code{metabolic.data} could be a  character vecotr which contains the KEGG 
+#'  Orthology annotated information on this organism, e.g. we can download this 
+#'  KO annotation profile in the \url{https://img.jgi.doe.gov} website for 
+#'  species detected in a human microbime which not contained in KEGG organism 
+#'  database. Several functions, such as \code{link{read.table}} and 
+#'  \code{\link{read.delim}} could help us to read KO annotation profile.
+#'  
 #'@return igraph object
-#'
+#'  
 #'@export
 #'
 #'@seealso \code{\link{getOrgMetabolicData}}
-#'
+#'  
 #'@examples
 #'## not run (organism in KEGG)
 #'## metabolic.data <- getOrgMetabolicData("buc", refresh = TRUE)
@@ -31,7 +39,16 @@
 #' metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
 #' g2 <- reconstructGsMN(metabolic.data)
 
-reconstructGsMN <- function(metabolic.data){
+reconstructGsMN <- function(metabolic.data, threshold = 10, is.gaint = TRUE){
+  # gaint component
+  net_gaint_component  <- function(g){
+    decomposed.component  <- decompose.graph(g)
+    gaint.component.index  <- llply(decomposed.component, 
+      function(x)V(x)$name) %>%
+      laply(length) %>%
+      which.max
+    return(decomposed.component[[gaint.component.index]])
+  }
   # delete the small group nodes
   deleteSG <- function(g,threshold = 10){ 
   if (!is.igraph(g))
@@ -50,15 +67,8 @@ reconstructGsMN <- function(metabolic.data){
     metabolites <- metabolic.data[,c(2,3)]
   }else{
     message("metabolic.data is the KEGG Orthology annotation profile of the species...")
-    if (FALSE){
-      if (!file.exists(file.path(Sys.getenv("home"),".mmnet","RefDbcache.rda"))){
-        message("Update the KEGG pathway data and save local...")
-        updateKEGGPathway()
-      }
-      load(file.path(Sys.getenv("home"),".mmnet","RefDbcache.rda"))
-    }
     data(RefDbcache,package="mmnet")
-    ko <- intersect(RefDbcache$ko, metabolic.data[[1]])
+    ko <- intersect(RefDbcache$ko, metabolic.data)
     index <- match(ko,RefDbcache$ko)
     metabolites <- RefDbcache[c("substrate","product")] %>%
       lapply(.,"[",index)
@@ -86,6 +96,8 @@ reconstructGsMN <- function(metabolic.data){
   ## drop the small dis-connetect components
   g <- delete.vertices(g, node2) %>%
     deleteSG(threshold = 10)
+  if (is.gaint)
+    g <- net_gaint_component(g)
   g
 }
 

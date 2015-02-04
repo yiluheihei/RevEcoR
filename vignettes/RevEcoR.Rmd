@@ -134,7 +134,7 @@ biocLite(c("mmnet","KEGGREST","Biobase"))
 Then install `RevEcoR` using devtools.
 
 ```{r,eval=FALSE}
-if (!require(devtools)??
+if (!require(devtools)
   install.packages("devtools")
 devtools::install_github("yiluheihei/RevEcoR")
 ```

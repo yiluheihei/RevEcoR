@@ -20,14 +20,14 @@ if(!require(knitr))
  install.packages("knitr") 
 ```
 Then install `RevEcoR` using devtools.
-```{r}
-if (!require(devtools)£©
+
+```r
+if (!require(devtools)
   install.packages("devtools")
 devtools::install_github("yiluheihei/RevEcoR")
 ```
 
-You'll also need to make sure your machine is able to build packages from source. See [Package Development Prerequisites]
-(https://support.rstudio.com/hc/en-us/articles/200486498-Package-Development-Prerequisites) for the tools needed for your operating system.
+You'll also need to make sure your machine is able to build packages from source. Rtools
 
 After installation, you can load **RevEcoR** into current workspace by typing or pasting the following codes:
 

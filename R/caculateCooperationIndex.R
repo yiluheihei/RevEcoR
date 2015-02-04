@@ -132,9 +132,9 @@ caculateCooperationIndex <- function(g, ...,threshold=0){
   }
   if (length(g)<2)
     stop("At least two species to compare")
-  competition.index <- matrix(0,length(g),length(g))
+  competition.index <- matrix(1,length(g),length(g))
   complementarity.index <- matrix(0,length(g),length(g))
-  bsi.score <- matrix(0,length(g),length(g))
+  bsi.score <- matrix(1,length(g),length(g))
   index <- permutations(length(g),2)
   competition.v<- apply(index,1,function(x)g[x]) %>%
     sapply(., function(x)competitionIndex(x[[1]],x[[2]],threshold))
