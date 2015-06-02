@@ -1,4 +1,4 @@
-#' Annotation profiles of species
+#' Annotation profiles of seven well-studied oral species
 #' 
 #' A dataset containing the the KEGG orthology annotation profiles of seven oral
 #' species which was downloaded from the Integrated Microbial Genomes (IMG).

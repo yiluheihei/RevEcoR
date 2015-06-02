@@ -4,7 +4,9 @@
 #'
 #' @name RevEcoR
 #' @docType package
-#' @importFrom igraph graph.dfs get.adjacency delete.vertices graph.adjacency V V<- neighborhood.size print.igraph subcomponent is.igraph E is.directed plot.igraph
+#' @importFrom igraph graph.dfs get.adjacency delete.vertices graph.adjacency V 
+#' V<- neighborhood.size print.igraph subcomponent is.igraph E is.directed plot.igraph 
+#' decompose.graph
 #' @importFrom Matrix t
 #' @importFrom Biobase listLen
 #' @importFrom KEGGREST keggGet keggList
@@ -13,4 +15,5 @@
 #' @importFrom magrittr extract is_greater_than %>%
 #' @importFrom gtools permutations
 #' @importFrom mmnet updateKEGGPathway
+#' @importFrom plyr llply laply
 NULL

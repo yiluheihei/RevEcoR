@@ -13,13 +13,13 @@
 #'   seed.
 #' @return a two-length list which consists of network and the seed set
 #'   compounds of the given organism-specific metabolic network,
-#'   
+#'   ....
 #' @export
 #' @seealso \code{\link{KosarajuSCC}},\code{\link{seedset-class}}
 getSeedSets <- function(g, threshold = 0){
   if (!is.igraph(g))
     stop("Not a igraph object")
-  ## check scc is a source seed sets or not 
+  ## check scc is a source seed sets or not
   checkSCC <- function(g, x){
     edge.in <- lapply(x, subcomponent, g=g, mode="in")
     edge.out <- lapply(x,subcomponent,g=g, mode="out")

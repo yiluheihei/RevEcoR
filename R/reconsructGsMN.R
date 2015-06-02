@@ -5,6 +5,10 @@
 #'  
 #'@param metabolic.data, df or a character vector. More details see function 
 #'  \code{getOrgMetabolicData} and \code{details}
+#'@param RefData The reference metabolic data. It does not need reference data 
+#'  While organism metabolic data was collected from KEGG database, and RefData 
+#'  is set to NULL. Otherwise, RefDbCache, an internal dataset in package \emph{mmnet},
+#'  was taken as the Reference metabolic data for Genome scale metabolic reconstruction.
 #'@param threshold numeric, Nodes belonging to components with fewer than the 
 #'  value of threshold nodes will be ignored. This is a good option for networks
 #'  that contain many small and trivial components. Default is 10.
@@ -31,15 +35,17 @@
 #'  
 #'@examples
 #'## not run (organism in KEGG)
-#'## metabolic.data <- getOrgMetabolicData("buc", refresh = TRUE)
+#'## metabolic.data <- getOrgMetabolicData("buc")
 #'## g <- reconstructGsMN(metabolic.data)
 #'
 #'## species detected in a human microbiome
 #' annodir <- system.file("extdata","koanno.tab",package = "RevEcoR")
 #' metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
-#' g2 <- reconstructGsMN(metabolic.data)
-
-reconstructGsMN <- function(metabolic.data, threshold = 10, is.gaint = TRUE){
+#' ##load the reference metabolic data
+#' data(RefDbcache,package="mmnet")
+#' g2 <- reconstructGsMN(metabolic.data, RefData = RefDbcache)
+reconstructGsMN <- function(metabolic.data, RefData = RefDbcache, 
+  threshold = 10, is.gaint = TRUE){
   # gaint component
   net_gaint_component  <- function(g){
     decomposed.component  <- decompose.graph(g)
@@ -63,14 +69,17 @@ reconstructGsMN <- function(metabolic.data, threshold = 10, is.gaint = TRUE){
     return(gf)
   }
   if (match(".attrs.name",names(metabolic.data),nomatch=0)){
-    message("metabolic.data is the reaction information from KEGG organism pathway map...")
+    #message("metabolic.data is the reaction information from KEGG organism pathway map...")
     metabolites <- metabolic.data[,c(2,3)]
   }else{
-    message("metabolic.data is the KEGG Orthology annotation profile of the species...")
-    data(RefDbcache,package="mmnet")
-    ko <- intersect(RefDbcache$ko, metabolic.data)
-    index <- match(ko,RefDbcache$ko)
-    metabolites <- RefDbcache[c("substrate","product")] %>%
+    #message("metabolic.data is the KEGG Orthology annotation profile of the species...")
+    ##data(RefDbcache,package="mmnet")
+    if (class(metabolic.data) == 'data.frame')
+      ko <- intersect(RefData$ko, metabolic.data[[1]])
+    else
+      ko <- intersect(RefData$ko, metabolic.data)
+    index <- match(ko,RefData$ko)
+    metabolites <- RefData[c("substrate","product")] %>%
       lapply(.,"[",index)
     metabolites <- data.frame(substrate=do.call(cbind,metabolites[1]),
       product=do.call(cbind,metabolites[2]),row.names=NULL,stringsAsFactors=FALSE)
@@ -95,9 +104,10 @@ reconstructGsMN <- function(metabolic.data, threshold = 10, is.gaint = TRUE){
     extract(node,.)
   ## drop the small dis-connetect components
   g <- delete.vertices(g, node2) %>%
-    deleteSG(threshold = 10)
+    deleteSG(threshold = threshold)
   if (is.gaint)
-    g <- net_gaint_component(g)
+    if (length(V(g)$name))
+      g <- net_gaint_component(g)
   g
 }
 

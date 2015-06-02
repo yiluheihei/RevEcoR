@@ -1,3 +1,5 @@
+utils::globalVariables(".")
+utils::globalVariables("RefDbcache")
 .check.seedset<- function(object)
 {
   if(!is(object, "seedset")) stop("object has to be of class \"seedset\" ")
@@ -115,7 +117,7 @@ setGeneric("nonseed",
 setMethod("nonseed",signature="seedset",
   function(object){
     non.seed  <- V(object@GsMN)$name
-    non.seed  <- setdiff(non.seed,unlist(object@seeds))
+    setdiff(non.seed,unlist(object@seeds))
   }
 )
 

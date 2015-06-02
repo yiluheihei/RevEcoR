@@ -3,40 +3,21 @@
 #' This function helps us  to obtain the specific-organism pathway map, prasing 
 #' this maps to get metabolic data contains reaction, substrate and product.
 #' 
-#' @param org, three characters, the KEGG organism code, e.g. "buc".
-#' 
-#' @param path, character which specify the dir for saving the local metabolic 
-#' data, default is your home dir of R. More information see \code{details}.
-#' 
-#' @param refresh, logical, whether refresh the exsits metabolic data from KEGG,
-#' detault is FALSE.
-#' 
-#' @details \code{getOrgMetabolicData} helps us to obtain metabolic data of a 
-#' given organism from KEGG database. However, keeping a downloaded metabolic 
-#' data in local is necessary. It not only can help keeping the data accurate 
-#' and speed up the process of network reconstruction, but also allows you to 
-#' reuse the data for other purposes.
-#' 
-#' Futher more, the reference data such as the KO reference hierarchy does not 
-#' change frequently.Neither does themetabolic data of organisms whose genome is
-#' sequenced very early. However, to those whose genome is undersequenced or just
-#' got completely annotated completely not very long ago, their metabolic data 
-#' is updated frequently. In this case, assigning different TTL (Time-to-live) to
-#' different types of data will reduce network overhead and data retrieval
-#' time caused by remotely visiting KEGG frequently. For example, it would be 
-#' helpful to set the renewal period of the KO reference hierarchy data as 30 
-#' days while that of the organism-specific.
-#' 
-#' As \code{getOrgMetabolicData}, check for the existence of queried orgaism 
-#' metabolic data in the local database. If the data is not there, retrieve it 
-#' from KEGG and write into the local database. If not, return the data 
-#' immediately from the local database.
-#' 
+#' @param org, characters, the KEGG organism code, e.g. "buc".
+#'   
+#' @details Function \code{getOrgMetabolicData} helps us to download metabolic 
+#'   data of a given organism from KEGG database with REST-style KEGG API. 
+#'   Enzyme reactions take place in this organism (org) and its metabolites 
+#'   (substrates and products), that will be used for organism-specific genome
+#'   scale metabolic network reconstruction, can be obtained with this function.
+#'   
 #' @export
 #' 
-#' @return a three length df, consists of  reaction name, substrates and products
+#' @return a three length df, consists of  enzyme reaction names, substrates and
+#'   products
 
-getOrgMetabolicData <- function(org, path = Sys.getenv("home"), refresh = FALSE){
+
+getOrgMetabolicData <- function(org){
   ## list of orgnism-specific kegg pathway map 
   org.pathway <- keggList("pathway",org) %>%
     names(.) %>%
@@ -106,26 +87,26 @@ getOrgMetabolicData <- function(org, path = Sys.getenv("home"), refresh = FALSE)
   }
   
   ##-------------------------------------------------------------##
-  path <- sprintf("%s/%s", path, ".RevEcoR")
-  if (!exists(path)) 
-    dir.create(path, showWarnings = FALSE)
-  metabolic.data <- sprintf("%s/%s", path, "MetabolicData.rda")
-  if (!file.exists(metabolic.data)){
-    message("No local metabolic data has been saved...")
-    if (!refresh)
-      stop("There is no local data, refresh must be TRUE, 
-      ...")
+  ##path <- sprintf("%s/%s", path, ".RevEcoR")
+  ##if (!exists(path)) 
+  ##  dir.create(path, showWarnings = FALSE)
+  ##metabolic.data <- sprintf("%s/%s", path, "MetabolicData.rda")
+  ##if (!file.exists(metabolic.data)){
+  ##  message("No local metabolic data has been saved...")
+  ##  if (!refresh)
+  ##    stop("There is no local data, refresh must be TRUE, 
+  ##    ...")
     rn <- refreshData(org.pathway)
     MetabolicData <- list(rn)
     names(MetabolicData) <- org
-    save(MetabolicData, file = metabolic.data)
+    ##save(MetabolicData, file = metabolic.data)
     return(rn)
-  }else{
-    load(metabolic.data)
-    if (refresh){
-      MetabolicData[[org]]  <- refreshData(org.pathway)
-      save(MetabolicData, file = metabolic.data)  
-    }
-    return(MetabolicData[[org]])
-  }
+  ##}else{
+  ##  load(metabolic.data)
+  ##  if (refresh){
+  ##    MetabolicData[[org]]  <- refreshData(org.pathway)
+  ##    save(MetabolicData, file = metabolic.data)  
+  ##  }
+  ##  return(MetabolicData[[org]])
+  ##}
 }
