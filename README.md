@@ -26,8 +26,6 @@ if (!require(devtools)
   install.packages("devtools") 
 devtools::install_github("yiluheihei/RevEcoR") 
 ```
-  
-```
 
 
 After installation, you can load **RevEcoR** into current workspace by typing or pasting the following codes:
