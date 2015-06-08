@@ -7,7 +7,7 @@
 #'  \code{getOrgMetabolicData} and \code{details}
 #'@param RefData The reference metabolic data. It does not need reference data 
 #'  While organism metabolic data was collected from KEGG database, and RefData 
-#'  is set to NULL. Otherwise, RefDbCache, an internal dataset in package \emph{mmnet},
+#'  is set to NULL. Otherwise, RefDbCache, an internal dataset in this package,
 #'  was taken as the Reference metabolic data for Genome scale metabolic reconstruction.
 #'@param threshold numeric, Nodes belonging to components with fewer than the 
 #'  value of threshold nodes will be ignored. This is a good option for networks
@@ -42,7 +42,7 @@
 #' annodir <- system.file("extdata","koanno.tab",package = "RevEcoR")
 #' metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
 #' ##load the reference metabolic data
-#' data(RefDbcache,package="mmnet")
+#' data(RefDbcache)
 #' g2 <- reconstructGsMN(metabolic.data, RefData = RefDbcache)
 reconstructGsMN <- function(metabolic.data, RefData = RefDbcache, 
   threshold = 10, is.gaint = TRUE){
@@ -73,7 +73,6 @@ reconstructGsMN <- function(metabolic.data, RefData = RefDbcache,
     metabolites <- metabolic.data[,c(2,3)]
   }else{
     #message("metabolic.data is the KEGG Orthology annotation profile of the species...")
-    ##data(RefDbcache,package="mmnet")
     if (class(metabolic.data) == 'data.frame')
       ko <- intersect(RefData$ko, metabolic.data[[1]])
     else

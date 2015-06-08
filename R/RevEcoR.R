@@ -8,12 +8,9 @@
 #' V<- neighborhood.size print.igraph subcomponent is.igraph E is.directed plot.igraph 
 #' decompose.graph
 #' @importFrom Matrix t
-#' @importFrom Biobase listLen
-#' @importFrom KEGGREST keggGet keggList
 #' @importFrom stringr str_replace_all str_count
 #' @importFrom XML getNodeSet xmlToList xmlParse
-#' @importFrom magrittr extract is_greater_than %>%
+#' @importFrom magrittr extract extract2 is_greater_than %>%
 #' @importFrom gtools permutations
-#' @importFrom mmnet updateKEGGPathway
 #' @importFrom plyr llply laply
 NULL

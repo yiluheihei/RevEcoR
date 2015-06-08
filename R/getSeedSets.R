@@ -34,7 +34,8 @@ getSeedSets <- function(g, threshold = 0){
   ## get the seed sets of a given network  
   g.scc <- KosarajuSCC(g)
   minsize.scc <- floor(1/threshold)
-  index <- which(listLen(g.scc)<=minsize.scc) 
+  ## index <- which(listLen(g.scc)<=minsize.scc)
+  index <- which(lapply(g.scc, length) <= minsize.scc) 
   min.scc <- g.scc[index]
   seeds <- sapply(min.scc,checkSCC,g=g) %>%
     extract(min.scc,.) %>%

@@ -19,16 +19,23 @@
 
 getOrgMetabolicData <- function(org){
   ## list of orgnism-specific kegg pathway map 
-  org.pathway <- keggList("pathway",org) %>%
-    names(.) %>%
+  ## org.pathway <- keggList("pathway",org) %>%
+  ##   names(.) %>%
+  ## sapply(.,str_replace_all,"path:","")
+  list.url <- 'http://rest.kegg.jp/list/pathway/'
+  org.pathway <- read.table(paste0(list.url,org),sep='\t', 
+    stringsAsFactors = F) %>% 
+    extract2(1) %>%
     sapply(.,str_replace_all,"path:","")
 
   ##-----------------------------------------------------------##
 
   ## information of reaction,direction,sub-pro for pathway map ##
   PathwayInfo <- function(pathway){
-    kgml <- keggGet(pathway,"kgml")
-    reaction <- lapply(getNodeSet(xmlParse(kgml), "//reaction"),xmlToList)
+    ## kgml <- keggGet(pathway,"kgml")
+    ## reaction <- lapply(getNodeSet(xmlParse(kgml), "//reaction"),xmlToList)
+    kgml <- xmlParse(paste0('http://rest.kegg.jp/get/',pathway,'/kgml'))
+    reaction <- lapply(getNodeSet(kgml, "//reaction"),xmlToList)
     if(length(reaction)){
       reaction <- lapply(reaction,unlist)
       attr <- c(".attrs.name","substrate.name","product.name",".attrs.type")
@@ -44,7 +51,8 @@ getOrgMetabolicData <- function(org){
   refreshData <- function(org.pathway){
     ##------integrate all pathway information for each specie------##
     pathway.info <- lapply(org.pathway,PathwayInfo)
-    pathway.info <- pathway.info[listLen(pathway.info)>0]
+    ## pathway.info <- pathway.info[listLen(pathway.info)>0]
+    pathway.info <- pathway.info[lapply(pathway.info, length)>0]
     ##-------------------multiple rn-------------------##
     ##rn.name =sapply(rn.name,str_replace_all,"rn:","")
     rn.info <- lapply(c(1,2,3,4),function(x)Reduce("c",
@@ -54,7 +62,8 @@ getOrgMetabolicData <- function(org){
     rn.name <- rn.info[,1]
     multi.index <- which(sapply(rn.name,nchar)>9)
     multi.rn <- sapply(rn.name[multi.index],strsplit,"\\s",perl=TRUE)
-    multi.len <- listLen(multi.rn)
+    ## multi.len <- listLen(multi.rn)
+    multi.len <- lapply(multi.rn, length)
     multi.metabolites <- rn.info[multi.index,-1]
     multi.metabolites <- multi.metabolites[rep(1:nrow(multi.metabolites),
       times=multi.len),]

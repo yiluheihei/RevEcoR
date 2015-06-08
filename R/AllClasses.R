@@ -68,7 +68,8 @@ setGeneric("seedSize",
 #' @aliases seedSize seedSize-methods
 setMethod("seedSize",signature="seedset",
   function(object){
-    listLen(object@seeds)
+    ## listLen(object@seeds)
+    lapply(object@seeds,length)
   }
 )
 

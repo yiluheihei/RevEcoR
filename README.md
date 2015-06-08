@@ -1,33 +1,34 @@
 # Reverse Ecology analysis in  R
 
-This package implementation the applications of reverse ecology. 
+This package implements the reverse ecology framework. 
 Reverse ecology refers to the use of genomics to study ecology with no a priori
 assumptions about the organism(s) under consideration, linking the organism and
-their environment and the interaction among species.
+their environment and the interactions among species.
 
 **Prerequisites**
 
-Until **RevEcoR** is ready for CRAN or Bioconductor, you can install it directly from GitHub using devtools.
+**RevEcoR** is free available on CRAN. You can install the latest released 
+version from CRAN as following:
 
-However, `install_github` can only install the dependencies that have been released on CRAN. Three dependencencies for `RevEcoR` were released on **Bioconductor**, including 
-`Biobase`, `KEGGREST` and `mmnet`. Moreover, the vignette of `RevEcoR` 
-was built using package `knitr`. Users should install these four packages manually first. 
-
-```r
-source("http://bioconductor.org/biocLite.R")
-biocLite(c("mmnet","KEGGREST","Biobase")) 
-if(!require(knitr))
- install.packages("knitr") 
-```
-Then install `RevEcoR` using devtools.
-
-```r
-if (!require(devtools)
-  install.packages("devtools")
-devtools::install_github("yiluheihei/RevEcoR")
+```{r,eval=FALSE} 
+install.packages("RevEcoR") 
 ```
 
-You'll also need to make sure your machine is able to build packages from source. Rtools
+or the latest development version from github. To install packages from GitHub,
+you first need install the **devtools** package on your system with 
+`install.packages("devtools")`. Note that devtools sometimes needs some 
+extra non-R software on your system -- more specifically, an Rtools download for
+Windows or Xcode for OS X. There's more information about devtools
+[here](https://github.com/hadley/devtools).
+  
+```{r,eval=FALSE} 
+if (!require(devtools) 
+  install.packages("devtools") 
+devtools::install_github("yiluheihei/RevEcoR") 
+```
+  
+```
+
 
 After installation, you can load **RevEcoR** into current workspace by typing or pasting the following codes:
 
@@ -41,4 +42,4 @@ For more complicated changes, you will have to manually create a pull request af
  
 ##License
 
-`RevEcoR` is a free and open source software, licensed under GPL.
+`RevEcoR` is a free and open source software, licensed under GPL 2.0.

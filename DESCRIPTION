@@ -1,27 +1,25 @@
 Package: RevEcoR
 Type: Package
 Title: Reverse Ecology Analysis on Microbiome
-Version: 0.99.1
+Version: 0.99.2
 Date: 2015-5-13
 Author: Yang Cao, Fei Li
 Maintainer: Yang Cao <yiluheihei@gmail.com>
-Description: This package implementation the applications of reverse ecology.
-    Reverse ecology refers to the use of genomics to study ecology with no a
-    priori assumptions about the organism(s) under consideration, linking the
-    organism and their environment. RevEcoR utilizes organisms
-    environment to predict the intersections of microbe-microbe and
-    host-microbe.
+Description: An implementation of the reverse ecology framework. Reverse ecology
+    refers to the use of genomics to study ecology with no a priori assumptions 
+    about the organism(s) under consideration, linking organisms to their
+    environment. It allows researchers to reconstruct the metabolic networks and
+    study the ecology of poorly characterized microbial species from their 
+    genomic information, and has substantial potentials for microbial community 
+    ecological analysis.
 Depends:
     R (>= 2.14)
 Imports:
-    Biobase,
     Matrix,
     igraph,
     XML,
     stringr,
-    KEGGREST,
     magrittr,
-    mmnet,
     gtools,
     plyr
 Suggests:
@@ -30,4 +28,3 @@ Suggests:
 VignetteBuilder: knitr
 License: GPL (>= 2)
 LazyData: yes
-biocViews: GraphsAndNetwork, Sequencing, Pathways SystemsBiology

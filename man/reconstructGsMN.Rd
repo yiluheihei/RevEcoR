@@ -13,7 +13,7 @@ reconstructGsMN(metabolic.data, RefData = RefDbcache, threshold = 10,
 
 \item{RefData}{The reference metabolic data. It does not need reference data
 While organism metabolic data was collected from KEGG database, and RefData
-is set to NULL. Otherwise, RefDbCache, an internal dataset in package \emph{mmnet},
+is set to NULL. Otherwise, RefDbCache, an internal dataset in this package,
 was taken as the Reference metabolic data for Genome scale metabolic reconstruction.}
 
 \item{threshold}{numeric, Nodes belonging to components with fewer than the
@@ -52,7 +52,7 @@ The input of this function can be of two forms. If organims is
 annodir <- system.file("extdata","koanno.tab",package = "RevEcoR")
 metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
 ##load the reference metabolic data
-data(RefDbcache,package="mmnet")
+data(RefDbcache)
 g2 <- reconstructGsMN(metabolic.data, RefData = RefDbcache)
 }
 \seealso{
