@@ -38,13 +38,13 @@ KosarajuSCC <- function(g){
     d.useful <- getnotNA(d$order,S.node)
     k <- length(d.useful)
     for(i in 1:k){
-      List.node[n-(Count+i-1)] <- d.useful[k-i+1]
+      List.node[n-(Count + i-1)] <- d.useful[k-i+1]
     }
     Count <- Count+k
     S.node[d.useful] <- 0
-    if(all(S.node==0))break
+    if(all(S.node==0)) break
     Source.node <- S.node[S.node!=0][1]
-    }  
+  }  
 ##------Reverse the directions of all arcs to obtain the transport graph---##
 ##-------------------------------------------------------------------------##
   Count <- 0
@@ -52,7 +52,8 @@ KosarajuSCC <- function(g){
     Source.node <- List.node[which(List.node!=0)[1]]
     d <- graph.dfs(gt,root=Source.node,neimode="out",unreachable=FALSE)
     d.useful <- getnotNA(d$order,List.node)
-    if(length(d)==0)break
+    if(length(d)==0)
+      break
     Count <- Count+1
 ##----Record this SCC and remove all these nodes from the graph and the stack---##
     List.out[[Count]] <- d.useful

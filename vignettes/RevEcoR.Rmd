@@ -279,10 +279,10 @@ igraph::plot.igraph(buc.net,
   
 The topology of metabolic networks can provide insight not only into the 
 metabolic process that accur within each species, but also into interactions 
-between different species. Here we provides `caculateCoopreationIndex` using 
+between different species. Here we provides `calculateCoopreationIndex` using 
 three cooperation index: [competition index, coplementarity index](#rule) 
 measure the microbe-microbe co-occurrence pattern. More details, see 
-`?caculateCoopreationIndex`.
+`?calculateCoopreationIndex`.
   
 ```{r} 
 # ptr metabolic network 
@@ -290,7 +290,7 @@ data(kegg_ptr)
 ##ptr.net <- reconstructGsMN(getOrgMetabolicData("ptr")) 
 ptr.net <- reconstructGsMN(kegg_ptr) 
 # cooperation analysis between buc and ptr 
-cooperation.index <- caculateCooperationIndex(buc.net,ptr.net) 
+cooperation.index <- calculateCooperationIndex(buc.net,ptr.net) 
 cooperation.index 
 ```
 
@@ -326,7 +326,7 @@ and finally predict the pairs of interactions between different species:
 gut.nets <- lapply(gut_microbiome,reconstructGsMN)
 seed.sets <- lapply(gut.nets,getSeedSets)
 ## Since calculation is on large scale, species interactions prediction may take several hours
-gut.interactions <- caculateCooperationIndex(gut.nets)
+gut.interactions <- calculateCooperationIndex(gut.nets)
 competition.index <- gut.interactions$competition.index
 complementarity.index <- gut.interactions$complementarity.index
 ```

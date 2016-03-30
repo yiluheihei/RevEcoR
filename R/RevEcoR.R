@@ -13,4 +13,6 @@
 #' @importFrom magrittr extract extract2 is_greater_than %>%
 #' @importFrom gtools permutations
 #' @importFrom plyr llply laply
+#' @importFrom purrr map2
+#' @importFrom methods show
 NULL

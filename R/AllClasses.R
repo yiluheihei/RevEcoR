@@ -143,8 +143,9 @@ setGeneric("confidencescore",
 #' @aliases confidencescore confidencescore-methods
 setMethod("confidencescore",signature="seedset",
   function(object){
-    confidence.score  <- 1/seedSize(object) 
-      mapply(function(x,y)rep(x,y),confidence.score,seedSize(object))
+    size <- unlist(seedSize(object)) 
+    confidence.score  <- 1/size 
+    map2(confidence.score,size, rep)
   }
 )
 

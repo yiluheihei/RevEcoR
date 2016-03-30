@@ -1,8 +1,8 @@
 Package: RevEcoR
 Type: Package
 Title: Reverse Ecology Analysis on Microbiome
-Version: 0.99.2
-Date: 2015-5-13
+Version: 0.99.3
+Date: 2016-3-28
 Author: Yang Cao, Fei Li
 Maintainer: Yang Cao <yiluheihei@gmail.com>
 Description: An implementation of the reverse ecology framework. Reverse ecology
@@ -21,10 +21,11 @@ Imports:
     stringr,
     magrittr,
     gtools,
-    plyr
-Suggests:
-    knitr,
+    plyr,
+    purrr,
     methods
+Suggests:
+    knitr
 VignetteBuilder: knitr
 License: GPL (>= 2)
 LazyData: yes
