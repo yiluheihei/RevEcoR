@@ -15,6 +15,13 @@
 #' 
 #' @return a three length df, consists of  enzyme reaction names, substrates and
 #'   products
+#'   
+#' @seealso \code{\link{getSeedSets}}
+#'   
+#' @examples
+#' \dontrun{
+#' metabolic.data <- getOrgMetabolicData("buc")
+#' }
 
 
 getOrgMetabolicData <- function(org){

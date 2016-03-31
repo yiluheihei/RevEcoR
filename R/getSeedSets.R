@@ -16,6 +16,14 @@
 #'   ....
 #' @export
 #' @seealso \code{\link{KosarajuSCC}},\code{\link{seedset-class}}
+#' 
+#' @examples 
+#' \dontrun{
+#' ## get metabolic annotated data of a specific species
+#' metabolic.data <- getOrgMetabolicData("buc")
+#' ## metabolic network reconstruction
+#' net <- reconstructGsMN(metabolic.data)
+#' }
 getSeedSets <- function(g, threshold = 0){
   if (!is.igraph(g))
     stop("Not a igraph object")

@@ -45,4 +45,15 @@ The ith row and jth col elements of the returnd matrix represents the
 metabolic competition index or complementarity index of the ith network on the
 jth metabolic network.
 }
+\examples{
+\dontrun{
+## metabolic network reconstruction and seed set identity of sample data anno.species
+net <- lapply(anno.species,reconstructGsMN)
+interactions <- calculateCooperationIndex(net)
+}
+}
+\seealso{
+\code{\link{complementarityIndex}},
+\code{\link{competitionIndex}}
+}
 

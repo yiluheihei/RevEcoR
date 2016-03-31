@@ -16,6 +16,14 @@ a list which length is equal to the number of SCCs, each element represents a Sc
 This function utilizes Kosaraju's algorithm to caculate the
 strong connetected components descomposition of a given network
 }
+\examples{
+\dontrun{
+metabolic.data <- getOrgMetabolicData("buc")
+## metabolic network reconstruction
+net <- reconstructGsMN(metabolic.data)
+scc <- KosarajuSCC(net)
+}
+}
 \references{
 \emph{AV Aho, JE Hopcroft, JD Ullman: The design and analysis of computer algorithms, 1974}
 }

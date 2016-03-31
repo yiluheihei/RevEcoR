@@ -24,4 +24,12 @@ Function \code{getOrgMetabolicData} helps us to download metabolic
   (substrates and products), that will be used for organism-specific genome
   scale metabolic network reconstruction, can be obtained with this function.
 }
+\examples{
+\dontrun{
+metabolic.data <- getOrgMetabolicData("buc")
+}
+}
+\seealso{
+\code{\link{getSeedSets}}
+}
 

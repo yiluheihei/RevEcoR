@@ -20,6 +20,11 @@ a igraph
 \description{
 T he genome scale metabolic network (GsMN) whose seed set is caculated.
 }
+\examples{
+\dontrun{
+getGsMN(seed.set)
+}
+}
 \seealso{
 \code{\link{seedset-class}}
 }

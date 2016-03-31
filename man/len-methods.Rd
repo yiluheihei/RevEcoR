@@ -20,6 +20,11 @@ an interger
 \description{
 Caculate the number of the seed source components.
 }
+\examples{
+\dontrun{
+len(seed.set)
+}
+}
 \seealso{
 \code{\link{seedset-class}}
 }

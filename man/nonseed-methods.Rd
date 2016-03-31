@@ -20,6 +20,11 @@ a vector
 \description{
 Non seed of the network.
 }
+\examples{
+\dontrun{
+nonseed(seed.set)
+}
+}
 \seealso{
 \code{\link{seedset-class}}
 }

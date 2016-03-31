@@ -44,6 +44,7 @@
 #' ##load the reference metabolic data
 #' data(RefDbcache)
 #' g2 <- reconstructGsMN(metabolic.data, RefData = RefDbcache)
+#' 
 reconstructGsMN <- function(metabolic.data, RefData = RefDbcache, 
   threshold = 10, is.gaint = TRUE){
   # gaint component

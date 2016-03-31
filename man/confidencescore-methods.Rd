@@ -20,6 +20,11 @@ a list
 \description{
 Caculate confidence score of seed set
 }
+\examples{
+\dontrun{
+confidencescore(seed.set)
+}
+}
 \seealso{
 \code{\link{seedset-class}}
 }

@@ -1,12 +1,14 @@
 ##==============================================================================
 ##==============================================================================
-#' Calculating the metabolic complementarity index
+#' Calculating the species interactions
 #' 
-#' Calculating the metabolic complementarity index of g1 in the presence of g2
+#' Calculating the metabolic complementarity index and complementarity index of 
+#' based on species metabolic network.
 #' 
-#'@param g1, igraph object, a metabolic network
+#'@param g1, igraph object, a species-specific metabolic network.
 #'
-#'@param g2, igraph object, a metabolic network, the complementary network of g1
+#'@param g2, igraph object, a species-specific metabolic network, the complementary
+#' network of g1
 #'
 #'@param seed.set1, seeds slot of a seed-set object, seeds of the metabolic 
 #'network g1, more details see \code{\link{seedset-class}}.
@@ -16,21 +18,53 @@
 #'
 #'
 #'@param threshold, the cutoff of confidence score to be serve as a seed set, 
-#'default is 0
+#'default is 0.
 #'
 #'@param p, a logical value which determins whether the calculated index is 
-#'statistical or biological significant. 
-#' default is FALSE
+#'statistical or biological significant. default is FALSE.
 #'
 #'@param nperm, the number of permuations of metabolic network node labes, which
 #'is used for complementarity index's P value calculating, default is 1000.
 #'
-#'@return a two length list: complementarity index: range from 0 to 1, p value
-#'of complementarity index. Or a single value of complementarity index while p
-#'is FALSE
+#'@return a two length list: complementarity index or competition index: range 
+#'from 0 to 1, p value of complementarity index. Or a single value of 
+#'complementarity or competition index while p is FALSE.
 #'
-#'@seealso \code{\link{competitionIndex}},
+#'@details Metabolic competition index is defined as the fraction of compounds 
+#'in a species seed set of metabolic network that are also included in its partner; 
+#'However, metabolic complementarity index is the fraction of compounds in one 
+#'species seed set of metabolic network appearing in the metabolic network but 
+#'not in the seed set of its partner. However, seed compounds are associated 
+#'with a confidence score (1/size of SCC), so this fraction is calculated as a 
+#'normalized weighted sum.
+#'
+#' Based on the metabolic network and seed sets of species, this functions help 
+#' us to predict the species interactions of species1 on the presence of species2. 
+#'
+#'@name Interactions
+#'@rdname Interactions
+#'
+#'@seealso \code{\link{getSeedSets}},
 #'\code{\link{calculateCooperationIndex}}
+#'
+#'@examples 
+#'\dontrun{
+#'## metabolic network reconstruction and seed set identity of sample data anno.species
+#'net <- lapply(anno.species,reconstructGsMN)
+#'seed.sets <- lapply(net, getSeedSets) 
+#'seed.sets <- lapply(seed.sets, function(x)x@@seeds)
+#'
+#'## calculate the complementarity index of the first species
+#'complementarity.index <- complementarityIndex(net[[1]],net[[2]], 
+#'  seed.sets[[1]], seed.sets[[2]])
+#'competition.index <- competitionIndex(net[[1]],net[[2]], 
+#'  seed.sets[[1]], seed.sets[[2]])
+#'}
+NULL
+
+
+#'@export
+#'@rdname Interactions
 
 complementarityIndex <- function(g1,g2, seed.set1, seed.set2, threshold = 0, 
   p  = FALSE, nperm = 1000){
@@ -79,41 +113,9 @@ complementarityIndex <- function(g1,g2, seed.set1, seed.set2, threshold = 0,
     return(complementary.index)
 }
 
-##==============================================================================
-##==============================================================================
 
-#' Calculating the metabolic competition index
-#'  
-#' Calculating the metabolic competition index of g1 in the presence of g2
-#' 
-#'@param g1, igraph object, a metabolic network
-#'
-#'@param g2, igraph object, a metabolic network, the complementary network of g1
-#'
-#'@param seed.set1, seeds slot of a seed-set object, seeds of the metabolic 
-#'network g1, more details see \code{\link{seedset-class}}.
-#'
-#'@param seed.set2, seeds slot of a seed-set object, seeds of the metabolic 
-#'network g2, more details see \code{\link{seedset-class}}.
-#'
-#'
-#'@param threshold, the cutoff of confidence score to be serve as a seed set, 
-#'default is 0.2
-#'
-#'@param p, a logical value which determins whether the calculated index is 
-#'statistical or biological significant. 
-#' default is FALSE
-#'
-#'@param nperm, the number of permuations of metabolic network node labes, which
-#'is used for complementarity index's P value calculating, default is 1000.
-#'
-#'@return a two length list: competition index: range from 0 to 1, p value
-#'of competition index. Or a single value of competition index while p
-#'is FALSE
-#'
-#'@seealso \code{\link{complementarityIndex}},
-#'\code{\link{calculateCooperationIndex}}
-
+#'@export
+#'@rdname Interactions
 competitionIndex <- function(g1,g2, seed.set1, seed.set2, threshold=0, 
   p = FALSE, nperm = 1000){
   
@@ -203,6 +205,16 @@ competitionIndex <- function(g1,g2, seed.set1, seed.set2, threshold=0,
 #'
 #'@return a cooperation index matrix whose nrow and ncol is equal to the number 
 #'of species to be compared, for more see details.
+#'
+#'@seealso \code{\link{complementarityIndex}},
+#'\code{\link{competitionIndex}}
+#'
+#'@examples
+#'\dontrun{
+#'## metabolic network reconstruction and seed set identity of sample data anno.species
+#'net <- lapply(anno.species,reconstructGsMN)
+#'interactions <- calculateCooperationIndex(net)
+#'}
 
 calculateCooperationIndex <- function(g, ...,threshold=0, p = FALSE, nperm = 1000){
   if (is.igraph(g)){

@@ -28,6 +28,14 @@ All the compound in the same source SCC all equally to be included
   seed. This threshold was used to determin whether a compound should be a
   seed.
 }
+\examples{
+\dontrun{
+## get metabolic annotated data of a specific species
+metabolic.data <- getOrgMetabolicData("buc")
+## metabolic network reconstruction
+net <- reconstructGsMN(metabolic.data)
+}
+}
 \seealso{
 \code{\link{KosarajuSCC}},\code{\link{seedset-class}}
 }

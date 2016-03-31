@@ -20,6 +20,11 @@ a vector represents size of each source seed componet of network
 \description{
 Caculate the size of each seed source component.
 }
+\examples{
+\dontrun{
+seedSize(seed.set)
+}
+}
 \seealso{
 \code{\link{seedset-class}}
 }

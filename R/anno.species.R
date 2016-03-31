@@ -29,4 +29,6 @@
 #' @source \url{img.jgi.doe.gov/}
 #' 
 #' @name anno.species
+#' @examples 
+#' data(anno.species)
 NULL

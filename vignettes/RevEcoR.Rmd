@@ -1,60 +1,22 @@
-%\VignetteEngine{knitr::docco_linear}
-%\VignetteIndexEntry{RevEcoR}
+---
+title: "Revse Ecology Analysis on Microbiome"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Revse Ecology Analysis on Microbiome}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
 
 ```{r setup, include=FALSE}
 library(knitr)
 library(RevEcoR)
 opts_chunk$set(fig.width=8, fig.height=5)
-knit_hooks$set(htmlcap = function(before, options, envir) {
-  if(!before) {
-    paste('<p class="caption" style="text-align: center; font-size: 20px; color: blue">',options$htmlcap,"</p>",sep="")
-    }
-    })
 set.seed(60823316) 
 ```
-<STYLE type="text/css">
-  h1,h2,h3,h4,h5 { 
-    font-family: palatino, georgia, serif;
-    color: royalblue;
-  }
-    h1, h2, h6{
-    text-align: center;
-  }
-  body{
-    font-size: 0.9em;
-    line-height: 23px;
-  }
-  h3{
-  font-weight: normal;
-  }
-  h6{
-        font-size: 0.9em;
-        font-weight: normal;
-        line-height: 5px;      
-   }
-   hr{
-     border-top-style: solid;
-     border-top-width: medium;
-   }
-  code {
-    font-size: 80%;
-    line-height: 140%;
-    border: 1px solid #ccc;
-  }
-   @media print{
-  hr { 
-      visibility: inherit;
-      page-break-before: auto;
-    }
-   p {
-    align. 
-   }
- </STYLE>
   
   
 ## RevEcoR -- Reverse ecology linking organism(s) and their environments
-  
-=======================================================================
   
 ###### Yang Cao  <yiluheihei@gmail.com>, Fei Li <pittacus@gmail.com>
   
@@ -82,7 +44,8 @@ set.seed(60823316)
   
 * [references](#ref)
   
-<a id="background"></a> 
+<a id="background"></a>
+
 ### Background
   
 Ecology is the scientific With the rapid and inexpensive next-generation 
@@ -101,6 +64,7 @@ in a superorganism.Traditional approach, however, can only applied to a small
 scale and for ralatively well-studied systems.
   
 <a id="intro"></a> 
+
 ### Introduction
   
 This manual is a brief introduction to structure, funcitons and usage of 
@@ -139,7 +103,8 @@ SCCs.
   
 4. Host-microbe and microbe-microbe cooperation analysis
   
-<a id="install"></a> 
+<a id="install"></a>
+
 ### Installation
 
 
@@ -173,7 +138,8 @@ or pasting the following codes:
 library(RevEcoR) 
 ```
   
-<a id="metadata"></a> 
+<a id="metadata"></a>
+
 ### Downloding the metabolic data of a specific organism
 
 Both the Kyoto Encyclopedia of Genes and Genomes (KEGG) and Integrated Microbial
@@ -232,7 +198,8 @@ g2 <- reconstructGsMN(metabolic.data, RefData = RefDbcache)
 ```
 
  
-<a id="seedset"></a> 
+<a id="seedset"></a>
+
 ### Identify seed set of  metabolic network
   
 As the interactions with the environment was reflected in the metabolic 
@@ -275,13 +242,13 @@ igraph::plot.igraph(buc.net,
 
 
 <a id="cooperation"></a> 
+
 ### Predict species interactions
   
 The topology of metabolic networks can provide insight not only into the 
 metabolic process that accur within each species, but also into interactions 
 between different species. Here we provides `calculateCoopreationIndex` using 
-three cooperation index: [competition index, coplementarity index](#rule) 
-measure the microbe-microbe co-occurrence pattern. More details, see 
+three cooperation index: [competition index, coplementarity index](#rule) measure the microbe-microbe co-occurrence pattern. More details, see 
 `?calculateCoopreationIndex`.
   
 ```{r} 
@@ -294,7 +261,67 @@ cooperation.index <- calculateCooperationIndex(buc.net,ptr.net)
 cooperation.index 
 ```
 
+Blow we applied **RevEcoR** to predict interactions among several human oral microbiota species whose co-occurrence patterns have previously been described. Our seven sample oral species metabolic dataset was downloaded from the IMG server; it consists of the following [Genomes Online Database (GOD)](http://www.genomesonline.org) IMG identification numbers: Gc0016386, Gi07614, Gi00264, Gc00809, Gc00643, Gi03876, and Gi07289. The interactions among the seven species is calculated as follwing:
+
+The metabolic networks of seven species was reconstructed first:
+
+```{r, eval = FALSE, echo=TRUE}
+##metabolic network reconstruction of these seven species
+net  <- lapply(anno.species, reconstructGsMN)
+```
+
+Then `caculateCooperationIndex` is used to calculated the species interactions among the seven species. 
+
+```{r, eval=FALSE, echo=TRUE}
+## caculate interactions among vious species
+interactions  <- calculateCooperationIndex(net, p = TRUE)
+## competition index
+$competition.index
+          Aa        Ao        Fn        Pg        Sg        So        Va
+Aa 1.0000000 0.4736842 0.3157895 0.2280702 0.4210526 0.4385965 0.2456140
+Ao 0.4736842 1.0000000 0.3684211 0.3333333 0.4736842 0.4736842 0.2456140
+Fn 0.5000000 0.5833333 1.0000000 0.4166667 0.5833333 0.5555556 0.4166667
+Pg 0.4193548 0.6129032 0.4838710 1.0000000 0.6129032 0.5161290 0.3870968
+Sg 0.5454545 0.6136364 0.4772727 0.4318182 1.0000000 0.9090909 0.3863636
+So 0.5813953 0.6046512 0.4651163 0.3720930 0.9302326 1.0000000 0.3953488
+Va 0.4827586 0.4827586 0.5172414 0.4137931 0.5862069 0.5862069 1.0000000
+## p value of competition index
+$competition.index.p
+Aa    Ao    Fn    Pg    Sg    So    Va
+Aa 0.000 0.001 0.001 0.001 0.001 0.001 0.001
+Ao 0.001 0.000 0.001 0.001 0.001 0.001 0.001
+Fn 0.001 0.001 0.000 0.001 0.001 0.001 0.001
+Pg 0.001 0.001 0.001 0.000 0.001 0.001 0.001
+Sg 0.001 0.001 0.001 0.001 0.000 0.001 0.001
+So 0.001 0.001 0.001 0.001 0.001 0.000 0.001
+Va 0.001 0.001 0.001 0.001 0.001 0.001 0.000
+## complementarity index
+$complementarity.index
+ Aa        Ao        Fn         Pg        Sg         So        Va
+Aa 0.0000000 0.1052632 0.1228070 0.07017544 0.0877193 0.08771930 0.1228070
+Ao 0.1403509 0.0000000 0.1403509 0.07017544 0.1228070 0.12280702 0.1403509
+Fn 0.1944444 0.1666667 0.0000000 0.16666667 0.1111111 0.11111111 0.1388889
+Pg 0.2258065 0.2258065 0.1612903 0.00000000 0.1612903 0.19354839 0.2258065
+Sg 0.2272727 0.1818182 0.1590909 0.09090909 0.0000000 0.04545455 0.1590909
+So 0.1860465 0.1395349 0.1860465 0.09302326 0.0000000 0.00000000 0.1395349
+Va 0.2068966 0.1724138 0.1379310 0.17241379 0.1379310 0.13793103 0.0000000
+## p value of complementarity index
+$complementarity.index.p
+ Aa    Ao    Fn    Pg    Sg    So    Va
+Aa 0.000 0.001 0.001 0.001 0.001 0.001 0.001
+Ao 0.001 0.000 0.001 0.001 0.001 0.001 0.001
+Fn 0.001 0.001 0.000 0.001 0.001 0.001 0.001
+Pg 0.001 0.001 0.001 0.000 0.001 0.001 0.001
+Sg 0.001 0.001 0.001 0.001 0.000 0.001 0.001
+So 0.001 0.001 0.001 0.001 0.001 0.000 0.001
+Va 0.001 0.001 0.001 0.001 0.001 0.001 0.000
+```
+
+We found that Streptococcus oralis (So) and Streptococcus gordonii (Sg) had the lowest complementarity index (0.04 and 0.00, respectively) and the highest competition index (0.91 and 0.93, respectively) among all pairs. Appanrently, the p value of all interactions are biologcial/statistical significance. This indicates that these two species are antagonistic, which is consistent with previous findings.
+
+
 <a id="microbiome"></a> 
+
 ### Comparing predicted interactions and co-occurrences
   
 To further evaluate the predicted interactions of RevEcoR on a large scale, we
@@ -397,7 +424,9 @@ if (require(magrittr)){
 We found that competition index is significant positively correlated with co-occurrence (cor = 0.261, P < 10-4, Mantel correlation test), whereas the complementarity index is significant negatively correlated with co-occurrence (cor = -0.259, P < 10-4, Mantel correlation test). This suggests that competition is liked to be the key factor
 to promote the assembly of gut microorganisms
 
+
 <a id="session"></a> 
+
 ### sessionInfo
   
 The version number of R and packages loaded for generating the vignette were:
@@ -406,9 +435,9 @@ The version number of R and packages loaded for generating the vignette were:
 sessionInfo() 
 ``` 
 
-<a id="ref"></a> 
+<a id="ref"></a>
+
 ### references 
------------------
   
 * <a name="reversecology">Li Y F, Costello J C, Holloway A K, et al. "Reverse 
 ecology" and the power of population genomics[J]. Evolution, 2008, 62(12): 

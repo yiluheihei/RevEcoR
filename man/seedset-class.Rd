@@ -31,7 +31,18 @@ Object representing the seed sets of a given metabolic network
        confidence score of the seed set}
  }
 }
+\examples{
+\dontrun{
+#' ## generate a metabolic network in igraph class and a seed set of this graph
+annodir <- system.file("extdata","koanno.tab",package = "RevEcoR")
+metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
+g <- reconstructGsMN(metabolic.data)
+seeds <- getSeedSets(g)@seeds
+seed.set <- new("seedset",GsMN = g, seeds = seeds)
+}
+}
 \seealso{
-\code{\link{getSeedSets}}
+\code{\link{getSeedSets}},\code{\link{getGsMN}},\code{\link{len}},
+\code{\link{nonseed}},\code{\link{seedSize}},\code{\link{confidencescore}}
 }
 

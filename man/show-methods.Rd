@@ -15,4 +15,12 @@
 \description{
 Show a short summary of seedset object
 }
+\examples{
+\dontrun{
+show(seed.set)
+}
+}
+\seealso{
+\code{\link{seedset-class}}
+}
 

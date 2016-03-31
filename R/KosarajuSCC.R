@@ -7,7 +7,14 @@
 #'@references \emph{AV Aho, JE Hopcroft, JD Ullman: The design and analysis of computer algorithms, 1974}
 #'@export
 #'@return a list which length is equal to the number of SCCs, each element represents a Scc
-#' @seealso \code{\link{getSeedSets}}
+#'@seealso \code{\link{getSeedSets}}
+#'@examples
+#'\dontrun{
+#'metabolic.data <- getOrgMetabolicData("buc")
+#'## metabolic network reconstruction
+#'net <- reconstructGsMN(metabolic.data)
+#'scc <- KosarajuSCC(net)
+#'} 
 
 KosarajuSCC <- function(g){  
   #Comparing d with S.node, get the overlapping ones and remove the NA

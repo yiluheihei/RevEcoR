@@ -3,6 +3,8 @@
 export("%.%")
 export(KosarajuSCC)
 export(calculateCooperationIndex)
+export(competitionIndex)
+export(complementarityIndex)
 export(compose)
 export(getOrgMetabolicData)
 export(getSeedSets)

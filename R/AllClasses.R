@@ -41,8 +41,19 @@ utils::globalVariables("RefDbcache")
 #' @name seedset-class
 #' @rdname seedset-class
 #' @exportClass seedset
-#' @seealso \code{\link{getSeedSets}}
+#' @seealso \code{\link{getSeedSets}},\code{\link{getGsMN}},\code{\link{len}},
+#' \code{\link{nonseed}},\code{\link{seedSize}},\code{\link{confidencescore}}
 #' 
+#' @examples 
+#' \dontrun{
+#' #' ## generate a metabolic network in igraph class and a seed set of this graph
+#' annodir <- system.file("extdata","koanno.tab",package = "RevEcoR")
+#' metabolic.data <- read.delim2(file=annodir,stringsAsFactors=FALSE)
+#' g <- reconstructGsMN(metabolic.data)
+#' seeds <- getSeedSets(g)@@seeds
+#' seed.set <- new("seedset",GsMN = g, seeds = seeds)
+#' }
+ 
 setOldClass("igraph")
 setClass("seedset", slot=list(GsMN="igraph",seeds="list"),
          prototype = list(GsMN=NULL,seeds=NULL),
@@ -60,6 +71,10 @@ setClass("seedset", slot=list(GsMN="igraph",seeds="list"),
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
 #'@return a vector represents size of each source seed componet of network
+#'@examples
+#'\dontrun{
+#'seedSize(seed.set)
+#'}
 
 
 setGeneric("seedSize",
@@ -85,6 +100,10 @@ setMethod("seedSize",signature="seedset",
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
 #'@return a igraph
+#'@examples
+#'\dontrun{
+#'getGsMN(seed.set)
+#'}
 
 
 setGeneric("getGsMN",
@@ -109,7 +128,10 @@ setMethod("getGsMN",signature="seedset",
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
 #'@return a vector
-
+#'@examples
+#'\dontrun{
+#'nonseed(seed.set)
+#'}
 
 setGeneric("nonseed",
   function(object){standardGeneric("nonseed")})
@@ -135,6 +157,10 @@ setMethod("nonseed",signature="seedset",
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
 #'@return a list
+#'@examples
+#'\dontrun{
+#'confidencescore(seed.set)
+#'}
 
 
 setGeneric("confidencescore",
@@ -161,6 +187,10 @@ setMethod("confidencescore",signature="seedset",
 #'@docType methods
 #'@seealso \code{\link{seedset-class}}
 #'@return an interger
+#' @examples
+#'\dontrun{
+#'len(seed.set)
+#'}
 setGeneric("len",
            function(object)
              standardGeneric("len")
@@ -182,6 +212,11 @@ setMethod("len",valueClass = c("numeric"),signature="seedset",
 #'@docType methods
 #'@rdname show-methods
 #'@aliases show show-methods
+#'@seealso \code{\link{seedset-class}}
+#'@examples
+#'\dontrun{
+#'show(seed.set)
+#'}
 setMethod("show",signature="seedset",
   function(object){
     direction  <- igraph::is.directed(object@GsMN)

@@ -32,4 +32,7 @@ This datasets constains the KEGG orthology annotation information of
   \item Va, Veillonella atypica ACS-134-V-Col7a
 }
 }
+\examples{
+data(anno.species)
+}
 
