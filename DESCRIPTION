@@ -3,14 +3,13 @@ Type: Package
 Title: Reverse Ecology Analysis on Microbiome
 Version: 0.99.3
 Date: 2016-3-28
-Author: Yang Cao, Fei Li
-Maintainer: Yang Cao <yiluheihei@gmail.com>
+Authors@R: c(person("Yang", "Cao", , email="yiluheihei@gmail.com", role=c("aut","cre")))
 Description: An implementation of the reverse ecology framework. Reverse ecology
-    refers to the use of genomics to study ecology with no a priori assumptions 
+    refers to the use of genomics to study ecology with no a priori assumptions
     about the organism(s) under consideration, linking organisms to their
     environment. It allows researchers to reconstruct the metabolic networks and
-    study the ecology of poorly characterized microbial species from their 
-    genomic information, and has substantial potentials for microbial community 
+    study the ecology of poorly characterized microbial species from their
+    genomic information, and has substantial potentials for microbial community
     ecological analysis.
 Depends:
     R (>= 2.14)
@@ -29,3 +28,4 @@ Suggests:
 VignetteBuilder: knitr
 License: GPL (>= 2)
 LazyData: yes
+RoxygenNote: 5.0.1
