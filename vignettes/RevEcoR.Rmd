@@ -16,7 +16,7 @@ set.seed(60823316)
 ```
   
   
-## RevEcoR -- Reverse ecology linking organism(s) and their environments
+## Reverse ecology linking organism(s) and their environments
   
 ###### Yang Cao  <yiluheihei@gmail.com>, Fei Li <pittacus@gmail.com>
   
@@ -46,7 +46,7 @@ set.seed(60823316)
   
 <a id="background"></a>
 
-### Background
+## Background
   
 Ecology is the scientific With the rapid and inexpensive next-generation 
 sequencing technologies The structure of complex biological systems reflects 
@@ -65,7 +65,7 @@ scale and for ralatively well-studied systems.
   
 <a id="intro"></a> 
 
-### Introduction
+## Introduction
   
 This manual is a brief introduction to structure, funcitons and usage of 
 **RevEcoR** package. The **RevEcoR** package implements the reverse ecology 
@@ -105,7 +105,7 @@ SCCs.
   
 <a id="install"></a>
 
-### Installation
+## Installation
 
 
   
@@ -140,7 +140,7 @@ library(RevEcoR)
   
 <a id="metadata"></a>
 
-### Downloding the metabolic data of a specific organism
+## Downloding the metabolic data of a specific organism
 
 Both the Kyoto Encyclopedia of Genes and Genomes (KEGG) and Integrated Microbial
 Genomes database (IMG) [7] collect complete high-quality genome sequences and
@@ -165,7 +165,7 @@ head(buc)
 ```
 
 <a id="reconstruct"></a> 
-### Reconstruction of organism metabolic network
+## Reconstruction of organism metabolic network
   
 The crucial premise of Reverse Ecology is that genomic information can be 
 converted into ecological information. Metabolism linking  miroorgasnim  with 
@@ -200,7 +200,7 @@ g2 <- reconstructGsMN(metabolic.data, RefData = RefDbcache)
  
 <a id="seedset"></a>
 
-### Identify seed set of  metabolic network
+## Identify seed set of  metabolic network
   
 As the interactions with the environment was reflected in the metabolic 
 networks, these networks could be used not only to infer metabolic function 
@@ -243,7 +243,7 @@ igraph::plot.igraph(buc.net,
 
 <a id="cooperation"></a> 
 
-### Predict species interactions
+## Predict species interactions
   
 The topology of metabolic networks can provide insight not only into the 
 metabolic process that accur within each species, but also into interactions 
@@ -322,7 +322,7 @@ We found that Streptococcus oralis (So) and Streptococcus gordonii (Sg) had the 
 
 <a id="microbiome"></a> 
 
-### Comparing predicted interactions and co-occurrences
+## Comparing predicted interactions and co-occurrences
   
 To further evaluate the predicted interactions of RevEcoR on a large scale, we
 integrated functions mentioned above to investigate species interactions in 
@@ -333,7 +333,7 @@ annotation profiles of this 116 species was collected from IMG database and was
 used to calculated the interactions (competition and complementarity index) for 
 all pairs of species.
 
-#### 1. Predicting species interactions in gut microbiome
+### 1. Predicting species interactions in gut microbiome
   
 For each species, we download the list of genes mapped to the Kyoto 
 Encyclopedia of Genes and Genomes orthologous groups (KOs) was downloaded with
@@ -358,7 +358,7 @@ competition.index <- gut.interactions$competition.index
 complementarity.index <- gut.interactions$complementarity.index
 ```
 
-#### 2. Obtaining co-occurrence scores in gut microbiome
+### 2. Obtaining co-occurrence scores in gut microbiome
 
 Specially, it will help us to predict whether species compete with one another 
 tend to co-occur or to exclude by comparing the species interactions and 
@@ -375,7 +375,7 @@ occurrence.score <- read.delim(system.file("extdata/occurrence.tab",
   package = "RevEcoR"),stringsAsFactors = FALSE, quote = "")
 ```
  
-#### 3. Comparing the interactions and co-occurrences
+### 3. Comparing the interactions and co-occurrences
  
 The Jaccard index measures similarity between finite sample sets, and is defined
 as the size of the intersection divided by the size of the union of the sample 
@@ -427,7 +427,7 @@ to promote the assembly of gut microorganisms
 
 <a id="session"></a> 
 
-### sessionInfo
+## sessionInfo
   
 The version number of R and packages loaded for generating the vignette were:
   
@@ -437,7 +437,7 @@ sessionInfo()
 
 <a id="ref"></a>
 
-### references 
+## references 
   
 * <a name="reversecology">Li Y F, Costello J C, Holloway A K, et al. "Reverse 
 ecology" and the power of population genomics[J]. Evolution, 2008, 62(12): 
