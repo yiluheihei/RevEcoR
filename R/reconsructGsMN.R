@@ -74,7 +74,7 @@ reconstructGsMN <- function(metabolic.data, RefData = RefDbcache,
     metabolites <- metabolic.data[,c(2,3)]
   }else{
     #message("metabolic.data is the KEGG Orthology annotation profile of the species...")
-    if (class(metabolic.data) == 'data.frame')
+    if (inherits(metabolic.data, 'data.frame'))
       ko <- intersect(RefData$ko, metabolic.data[[1]])
     else
       ko <- intersect(RefData$ko, metabolic.data)
