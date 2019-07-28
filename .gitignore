@@ -3,3 +3,4 @@
 .RData
 *.txt
 ..Rcheck
+.DS_Store
